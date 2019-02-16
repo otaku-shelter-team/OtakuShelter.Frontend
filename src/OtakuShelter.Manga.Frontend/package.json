@@ -1,64 +1,25 @@
 {
-  "name": "otaku-shelter-admin",
+  "name": "new",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bulma": "^0.7.2",
-    "kotlinx-serialization-runtime-js": "^0.5.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-redux": "^6.0.0",
-    "react-router-dom": "^4.3.1",
-    "redux": "^4.0.1"
-  },
-  "devDependencies": {
-    "@jetbrains/gen-idea-libs": "^1.0.11",
-    "@jetbrains/kotlin-extensions": "^1.0.1-pre.58",
-    "@jetbrains/kotlin-react": "^16.5.2-pre.58",
-    "@jetbrains/kotlin-react-dom": "^16.5.2-pre.58",
-    "@jetbrains/kotlin-react-redux": "^5.0.7-pre.67",
-    "@jetbrains/kotlin-react-router-dom": "^4.3.1-pre.67",
-    "@jetbrains/kotlin-redux": "^4.0.0-pre.67",
-    "@jetbrains/kotlin-webpack-plugin": "^2.0.3",
-    "@jetbrains/ts2kt-automator": "^1.0.12",
-    "autoprefixer": "^9.3.1",
-    "case-sensitive-paths-webpack-plugin": "^2.1.2",
-    "chalk": "^2.4.1",
-    "core-js": "^2.5.7",
-    "css-loader": "^1.0.1",
-    "dotenv": "^6.1.0",
-    "file-loader": "^2.0.0",
-    "fs-extra": "^7.0.0",
-    "html-webpack-plugin": "4.0.0-beta.2",
-    "kotlin": "^1.3.0",
-    "kotlinx-html": "^0.6.11",
-    "mini-css-extract-plugin": "^0.4.4",
-    "node-sass": "^4.11.0",
-    "object-assign": "^4.1.1",
-    "postcss-flexbugs-fixes": "^4.1.0",
-    "postcss-loader": "^3.0.0",
-    "promise": "^8.0.2",
-    "react-dev-utils": "^6.1.1",
-    "react-error-overlay": "^4.0.1",
-    "sass-loader": "^7.1.0",
-    "source-map-loader": "^0.2.4",
-    "style-loader": "^0.23.1",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.23.1",
-    "webpack-dev-server": "^3.1.10",
-    "webpack-manifest-plugin": "^2.0.4",
-    "whatwg-fetch": "^3.0.0"
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-scripts": "2.1.5"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "gen-idea-libs": "node scripts/gen-idea-libs.js",
-    "get-types": "node scripts/get-types.js --dest=src/types",
-    "postinstall": "npm run gen-idea-libs"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  }
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
