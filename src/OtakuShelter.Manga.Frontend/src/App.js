@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {Redirect, Route, BrowserRouter as Router} from 'react-router-dom'
+import pages from './configs/pagesConfig'
+import './App.scss'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+class App extends React.Component {
+	render() {
+		return (
+			<Router>
+				<div>
+					{pages.map((page) =>
+						<Route
+							key={page.name}
+							exact
+							path={page.route}
+							render={(props) => page.render(props)}
+						/>
+					)}
+					<Redirect from="/" to="/profile"/>
+				</div>
+			</Router>
+		)
+	}
 }
 
-export default App;
+export default App
