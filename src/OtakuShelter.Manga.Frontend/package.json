@@ -16,6 +16,7 @@
     "bulma": "^0.7.4",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "css-loader": "1.0.0",
+    "dayjs": "^1.8.6",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
     "eslint": "5.12.0",
@@ -65,7 +66,6 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
-  "proxy": "http://account.otaku-shelter.ru",
   "eslintConfig": {
     "extends": "react-app"
   },

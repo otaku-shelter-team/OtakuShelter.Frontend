@@ -5,8 +5,8 @@ class AccountModel {
 		.then(({data}) => data)
 		.catch((error) => error.response.data)
 
-	static getTokens = (username, password) => axios.post('/tokens', {username, password})
-		.then(({data}) => data)
+	static getAccounts = () => axios.get('/admin/accounts')
+		.then(({data}) => data.accounts)
 		.catch((error) => error.response.data)
 }
 

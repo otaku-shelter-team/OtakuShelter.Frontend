@@ -2,7 +2,7 @@ import React from 'react'
 
 class Statistics extends React.Component{
 	render() {
-		return <div>{this.name}</div>
+		return <div>Statistics</div>
 	}
 }
 

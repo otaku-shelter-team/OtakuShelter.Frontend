@@ -1,6 +1,7 @@
 import React from 'react'
 import LoginTemplate from './LoginTemplate'
 import AccountModel from '../../models/AccountModel'
+import TokenModel from '../../models/TokenModel'
 
 class Login extends React.Component {
 	state = {
@@ -21,8 +22,9 @@ class Login extends React.Component {
 
 	onSubmit = async () => {
 		const {username, password} = this.state.formData
-		await AccountModel.login(username, password)
-		const tokens = await AccountModel.getTokens(username, password)
+		// await AccountModel.login(username, password)
+		const tokens = await TokenModel.getUserTokens(username, password)
+		console.log(tokens)
 		// TODO: save tokens in Cookies
 	}
 

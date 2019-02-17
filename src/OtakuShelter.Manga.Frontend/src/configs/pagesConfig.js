@@ -1,4 +1,4 @@
-import Login from '../App'
+import Login from '../pages/login'
 import React from 'react'
 import Main from '../pages/main'
 import Profile from '../pages/main/profile'
@@ -17,32 +17,33 @@ const pages = [
 	{
 		name: 'profile',
 		route: '/profile',
-		render: (props) => <Main {...props} section={<Profile/>}/>
+		render: (props) => <Main {...props} section={<Profile/>} sectionName="profile"/>
 	},
 	{
 		name: 'account',
 		route: '/account',
-		render: (props) => <Main {...props} section={<Account/>}/>
+		render: (props) => <Main {...props} section={<Account/>} sectionName="account"/>
 	},
 	{
 		name: 'role',
 		route: '/role',
-		render: (props) => <Main {...props} section={<Role/>}/>
+		render: (props) => <Main {...props} section={<Role/>} sectionName="role"/>
 	},
 	{
 		name: 'manga',
 		route: '/manga',
-		render: (props) => <Main {...props} section={<Manga/>}/>
+		render: (props) => <Main {...props} section={<Manga/>} sectionName="manga"/>
 	},
-	{
-		name: 'token',
-		route: '/token',
-		render: (props) => <Main {...props} section={<Token/>}/>
-	},
+	// TODO: FIXME
+	// {
+	// 	name: 'token',
+	// 	route: '/token',
+	// 	render: (props) => <Main {...props} section={<Token/>} sectionName="token"/>
+	// },
 	{
 		name: 'statistics',
 		route: '/statistics',
-		render: (props) => <Main {...props} section={<Statistics/>}/>
+		render: (props) => <Main {...props} section={<Statistics/>} sectionName="statistics"/>
 	}
 ]
 
