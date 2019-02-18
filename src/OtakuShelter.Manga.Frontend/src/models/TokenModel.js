@@ -5,7 +5,12 @@ class TokenModel {
         .then(({data}) => data)
         .catch((error) => error.response.data)
 
-    static getAccessToken = (refreshToken) => axios.put('/tokens', {refreshToken})
+    static getAccessToken = (refreshToken) => axios.put('/tokens', {refreshToken}, {
+        headers: {
+
+            Authorization: `Bearer ${refreshToken}`,
+        }
+    })
         .then(({data}) => data)
         .catch((error) => error.response.data)
 }
