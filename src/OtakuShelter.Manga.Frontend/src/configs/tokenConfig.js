@@ -33,9 +33,9 @@ class Tokens {
         axios.interceptors.response.use(
             response => response,
             (error) => {
-                if (error.response && error.response.status === 401) {
-                    window.location.reload()
-                }
+                // if (error.response && error.response.status === 401) {
+                //     window.location.reload()
+                // }
                 return Promise.reject(error)
             }
         )
@@ -45,15 +45,19 @@ class Tokens {
 
     extractRefreshToken() {
         this.tokens.refreshToken = getCookie("refreshToken")
-
+        if (this.tokens.refreshToken) {
+            return false
+        }
         return this
     }
 
     async getAccessToken() {
         const tokens = await TokenModel.getAccessToken(this.tokens.refreshToken)
-        this.takeTokens(tokens)
+        await this.takeTokens(tokens)
+        await this.register()
 
-        return true
+
+        return !!tokens
     }
 }
 

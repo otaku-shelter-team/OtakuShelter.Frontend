@@ -2,6 +2,7 @@ import React from 'react'
 import LoginTemplate from './LoginTemplate'
 import TokenModel from '../../models/TokenModel'
 import Tokens from "../../configs/tokenConfig";
+import Loader from "../../componens/loader";
 
 class Login extends React.Component {
     state = {
@@ -9,18 +10,26 @@ class Login extends React.Component {
             username: '',
             password: ''
         },
-        formErrors: {}
+        formErrors: {},
+        isLoaded: false
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const {history} = this.props;
 
-        const status = new Tokens()
-            .extractRefreshToken()
-            .getAccessToken()
+        const status = new Tokens().extractRefreshToken()
 
-        if (status) {
-            history.push("account")
+        if (status === false) {
+            this.setState({
+                isLoaded: true
+            })
+            return
+        }
+
+        const token = status.getAccessToken();
+
+        if (await token) {
+            history.push("/account")
         }
     }
 
@@ -32,21 +41,29 @@ class Login extends React.Component {
         })
     }
 
-    onSubmit = async () => {
+    onSubmit = () => {
         const {username, password} = this.state.formData
         const {history} = this.props
-        const tokens = await TokenModel.getUserTokens(username, password)
-        const register = new Tokens()
-            .takeTokens(tokens)
-            .register()
+        this.setState({
+            isLoaded: false
+        }, async () => {
+            const tokens = await TokenModel.getUserTokens(username, password)
+            const register = new Tokens()
+                .takeTokens(tokens)
+                .register()
 
-        history.push('profile')
+            history.push('profile')
+        })
+
     }
 
     render() {
-        const {formData, formErrors} = this.state
-        return <LoginTemplate formData={formData} formErrors={formErrors} onChange={this.onChange}
-                              onSubmit={this.onSubmit}/>
+        const {formData, formErrors, isLoaded} = this.state
+        const {loaderName} = this
+        return isLoaded
+            ? <LoginTemplate formData={formData} formErrors={formErrors} onChange={this.onChange}
+                             onSubmit={this.onSubmit}/>
+            : <Loader/>
     }
 }
 
