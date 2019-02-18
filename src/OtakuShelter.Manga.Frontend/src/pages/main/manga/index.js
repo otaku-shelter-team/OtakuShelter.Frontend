@@ -3,7 +3,7 @@ import Table from '../../../componens/table'
 import MangaModel from '../../../models/MangaModel'
 
 class Manga extends React.Component{
-	headers = ['Manga Id', 'Title', 'Description', 'Image']
+	headers = ['Id', 'Title', 'Description', 'Image']
 	state = {
 		mangas: []
 	}

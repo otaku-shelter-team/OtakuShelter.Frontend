@@ -17,7 +17,7 @@ class App extends React.Component {
 							render={(props) => page.render(props)}
 						/>
 					)}
-					<Redirect from="/" to="/login"/>
+					<Redirect from="/" to="/account"/>
 				</div>
 			</Router>
 		)

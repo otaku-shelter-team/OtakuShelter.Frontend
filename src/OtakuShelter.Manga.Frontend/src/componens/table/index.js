@@ -16,6 +16,7 @@ class Table extends React.Component {
 						<tr key={item.id}>
 							{shema.map((shem) => (
 								<td className={shem.className}>
+									{console.log(shem)}
 									{shem.template(item)}
 								</td>
 							))}

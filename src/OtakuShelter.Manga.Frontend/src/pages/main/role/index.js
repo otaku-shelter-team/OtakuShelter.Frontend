@@ -3,7 +3,7 @@ import Table from '../../../componens/table'
 import RoleModel from '../../../models/RoleModel'
 
 class Role extends React.Component{
-	headers = ['Role Id', 'Role Name']
+	headers = ['Id', 'Name']
 	state = {
 		roles: []
 	}

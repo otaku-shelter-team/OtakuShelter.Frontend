@@ -1,16 +1,19 @@
 import React from 'react'
 import Table from '../../../componens/table'
 import ProfileModel from '../../../models/ProfileModel'
-import dayjs from '../account'
+import dayjs from 'dayjs'
 
 class Profile extends React.Component {
-	headers = ['Profile Id', 'Account Id', 'Nickname', 'Create Time']
+	headers = ['Id', 'Account Id', 'Nickname', 'Created']
 	state = {
 		profiles: []
 	}
 
 	async componentDidMount() {
 		const profiles = await ProfileModel.getProfiles()
+
+		console.log('profiles', profiles);
+		
 		this.setState({
 			profiles
 		})
@@ -30,7 +33,7 @@ class Profile extends React.Component {
 					}, {
 						template: (item) => item.nickname
 					}, {
-						template: (item) => dayjs(item.created).format('D/M/YYYY')
+						template: (item) => dayjs(item.created).format('D/M/YYYY hh:mm')
 					}
 				]}
 			/>

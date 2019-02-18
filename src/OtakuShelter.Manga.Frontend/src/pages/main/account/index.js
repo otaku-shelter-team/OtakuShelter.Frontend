@@ -4,7 +4,7 @@ import AccountModel from '../../../models/AccountModel'
 import dayjs from 'dayjs'
 
 class Account extends React.Component {
-	headers = ['Account Id', 'User Name', 'Create Time', 'Role Id']
+	headers = ['Id', 'Role Id', 'Username', 'Created']
 	state = {
 		accounts: []
 	}
@@ -26,11 +26,11 @@ class Account extends React.Component {
 					{
 						template: (item) => item.id
 					}, {
+						template: (item) => item.roleId
+					}, {
 						template: (item) => item.username
 					}, {
 						template: (item) => dayjs(item.created).format('D/M/YYYY')
-					}, {
-						template: (item) => item.roleId
 					}
 				]}
 			/>
