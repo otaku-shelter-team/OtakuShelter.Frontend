@@ -1,38 +1,53 @@
 import React from 'react'
 import LoginTemplate from './LoginTemplate'
-import AccountModel from '../../models/AccountModel'
 import TokenModel from '../../models/TokenModel'
+import Tokens from "../../configs/tokenConfig";
 
 class Login extends React.Component {
-	state = {
-		formData: {
-			username: '',
-			password: ''
-		},
-		formErrors: {}
-	}
+    state = {
+        formData: {
+            username: '',
+            password: ''
+        },
+        formErrors: {}
+    }
 
-	onChange = (name, value) => {
-		this.setState({
-			formData: {
-				...this.state.formData, [name]: value
-			}
-		})
-	}
+    componentDidMount() {
+        const {history} = this.props;
 
-	onSubmit = async () => {
-		const {username, password} = this.state.formData
-		// await AccountModel.login(username, password)
-		const tokens = await TokenModel.getUserTokens(username, password)
-		console.log(tokens)
-		// TODO: save tokens in Cookies
-	}
+        const status = new Tokens()
+            .extractRefreshToken()
+            .getAccessToken()
 
-	render() {
-		const {formData, formErrors} = this.state
-		return <LoginTemplate formData={formData} formErrors={formErrors} onChange={this.onChange}
-		                      onSubmit={this.onSubmit}/>
-	}
+        if (status) {
+            history.push("account")
+        }
+    }
+
+    onChange = (name, value) => {
+        this.setState({
+            formData: {
+                ...this.state.formData, [name]: value
+            }
+        })
+    }
+
+    onSubmit = async () => {
+        const {username, password} = this.state.formData
+        const {history} = this.props
+        const tokens = await TokenModel.getUserTokens(username, password)
+        const register = new Tokens()
+            .takeTokens(tokens)
+            .register()
+
+        history.push('profile')
+    }
+
+    render() {
+        const {formData, formErrors} = this.state
+        return <LoginTemplate formData={formData} formErrors={formErrors} onChange={this.onChange}
+                              onSubmit={this.onSubmit}/>
+    }
 }
 
 export default Login

@@ -1,20 +1,60 @@
 import axios from 'axios'
+import TokenModel from "../models/TokenModel";
 
-const defaultHeaders = {
-	Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjExIiwicm9sZSI6ImFkbWluIiwibmJmIjoxNTUwNTAxODAzLCJleHAiOjE1NTExMDY2MDMsImlhdCI6MTU1MDUwMTgwMywiaXNzIjoib3Rha3VzaGVsdGVyLmlzc3VlciIsImF1ZCI6Im90YWt1c2hlbHRlci5hdWRpZW5jZSJ9.lYrVAsvMIn6SoLwe9bNBYV0_28MNDbISlZZOUc50JD4',
-	'X-Requested-With': 'XMLHttpRequest',
-	Accept: 'application/json'
+function getCookie(name) {
+    const matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
+class Tokens {
+    tokens = {
+        accessToken: '',
+        refreshToken: ''
+    }
 
-axios.defaults.headers.common = {...defaultHeaders}
+    takeTokens({accessToken, refreshToken}) {
+        console.log(refreshToken)
+        this.tokens.accessToken = accessToken
+        this.tokens.refreshToken = refreshToken
+        return this
+    }
 
-axios.interceptors.response.use(
-	response => response,
-	(error) => {
-		if (error.response && error.response.status === 401) {
-			window.location.reload()
-		}
-		return Promise.reject(error)
-	}
-)
+    register() {
+        const defaultHeaders = {
+            Authorization: `Bearer ${this.tokens.accessToken}`,
+            'X-Requested-With': 'XMLHttpRequest',
+            Accept: 'application/json'
+        }
+
+        axios.defaults.headers.common = {...defaultHeaders}
+
+        axios.interceptors.response.use(
+            response => response,
+            (error) => {
+                if (error.response && error.response.status === 401) {
+                    window.location.reload()
+                }
+                return Promise.reject(error)
+            }
+        )
+
+        document.cookie = `refreshToken=${this.tokens.refreshToken}`
+    }
+
+    extractRefreshToken() {
+        this.tokens.refreshToken = getCookie("refreshToken")
+
+        return this
+    }
+
+    async getAccessToken() {
+        const tokens = await TokenModel.getAccessToken(this.tokens.refreshToken)
+        this.takeTokens(tokens)
+
+        return true
+    }
+}
+
+export default Tokens
