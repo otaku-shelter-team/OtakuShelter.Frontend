@@ -5,7 +5,7 @@ sudo: required
 language: bash
 services: docker
 install:
-- sudo apt-get install 
+- sudo apt-get install sshpass
 script:
 - docker-compose build
 - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
