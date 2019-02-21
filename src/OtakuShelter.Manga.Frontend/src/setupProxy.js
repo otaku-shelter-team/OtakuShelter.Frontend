@@ -22,7 +22,7 @@ module.exports = function (app) {
         changeOrigin: true,
     }))
     app.use(proxy('/tokens', {
-        target: 'http://account.otaku-shelter.ru/',
+        target: 'http://localhost:5000/',
         changeOrigin: true,
     }))
 }
