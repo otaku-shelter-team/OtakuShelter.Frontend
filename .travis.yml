@@ -3,10 +3,9 @@ dist: trusty
 cache: false
 sudo: required
 language: bash
-services: 
-- docker
-- sshpass
-
+services: docker
+install:
+- sudo apt-get install 
 script:
 - docker-compose build
 - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
