@@ -1,8 +1,12 @@
-language: node_js
+os: linux
+dist: trusty
+cache: false
 sudo: required
-dist: xenial
-install:
-- sudo apt-get install sshpass
+language: bash
+services: 
+- docker
+- sshpass
+
 script:
 - docker-compose build
 - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
