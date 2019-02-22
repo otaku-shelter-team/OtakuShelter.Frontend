@@ -5,7 +5,7 @@ services:
     image: "otakushelter/frontend:1.0.${TRAVIS_BUILD_NUMBER}"
     build: 
       context: .
-      dockerfile: src/OtakuShelter.Manga.Frontend/Dockerfile
+      dockerfile: src/OtakuShelter.Frontend/Dockerfile
     ports:
       - 4004:3000
     environment:
