@@ -3,6 +3,7 @@ import React from 'react'
 class Table extends React.Component {
 	render() {
 		const {headers, items, shema} = this.props
+
 		return (
 			<div className="column is-fullwidth">
 				<table width="100%" className="table">
