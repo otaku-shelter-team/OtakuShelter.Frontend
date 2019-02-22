@@ -15,7 +15,6 @@ class Tokens {
     }
 
     takeTokens({accessToken, refreshToken}) {
-        console.log(refreshToken)
         this.tokens.accessToken = accessToken
         this.tokens.refreshToken = refreshToken
         return this

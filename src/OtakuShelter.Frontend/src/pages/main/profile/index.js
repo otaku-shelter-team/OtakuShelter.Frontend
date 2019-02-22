@@ -14,8 +14,6 @@ class Profile extends React.Component {
     async componentDidMount() {
         const profiles = await ProfileModel.getProfiles()
 
-        console.log('profiles', profiles);
-
         this.setState({
             profiles,
             isLoaded: true

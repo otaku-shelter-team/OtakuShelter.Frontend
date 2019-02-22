@@ -14,13 +14,13 @@ function LoginTemplate({formData, formErrors, onChange, onSubmit}) {
 							<form>
 								<div className="field">
 									<div className="control">
-										<input name="username" className="input" type="login" placeholder="Your User Name" autoFocus=""
+										<input name="username" className="input" type="login" placeholder="Username" autoFocus=""
 										       onChange={({target: {name, value}}) => onChange(name, value)}/>
 									</div>
 								</div>
 								<div className="field">
 									<div className="control">
-										<input name="password" className="input" type="password" placeholder="Your Password"
+										<input name="password" className="input" type="password" placeholder="Password"
 										       onChange={({target: {name, value}}) => onChange(name, value)}/>
 									</div>
 								</div>
