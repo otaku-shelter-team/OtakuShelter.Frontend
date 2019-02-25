@@ -7,7 +7,7 @@ services: docker
 install:
 - sudo apt-get install sshpass
 script:
-- docker -t otakushelter/frontend:1.0.${TRAVIS_BUILD_NUMBER} -f src/OtakuShelter.Frontend/Dockerfile .
+- docker build -t otakushelter/frontend:1.0.${TRAVIS_BUILD_NUMBER} -f src/OtakuShelter.Frontend/Dockerfile .
 - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
 - docker push otakushelter/frontend:1.0.$TRAVIS_BUILD_NUMBER
 - |
