@@ -16,8 +16,13 @@ script:
     ansible-playbook deploy.yml \
     -e \"\
     otakushelter_hosts=frontends \
+    otakushelter_nginx_server_name=otaku-shelter.ru \
+    otakushelter_nginx_proxy_pass=http://localhost:4004 \
+    otakushelter_nginx_config=frontend \
     otakushelter_container=otakushelter_frontend \
     otakushelter_image=otakushelter/frontend \
     otakushelter_port=4004 \
-    otakushelter_build_number=$TRAVIS_BUILD_NUMBER\" \
+    otakushelter_build_number=$TRAVIS_BUILD_NUMBER \
+    otakushelter_database_password=$OTAKUSHELTER_DATABASE_PASSWORD \
+    otakushelter_secret=$OTAKUSHELTER_SECRET\" \
     -i inventories/staging"
