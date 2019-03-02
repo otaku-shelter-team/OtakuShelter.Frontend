@@ -44,10 +44,10 @@ class Tokens {
 
     extractRefreshToken() {
         this.tokens.refreshToken = getCookie("refreshToken")
-        if (this.tokens.refreshToken) {
+        if (this.tokens.refreshToken === "undefined")
             return false
-        }
-        return this
+        else
+            return this
     }
 
     async getAccessToken() {

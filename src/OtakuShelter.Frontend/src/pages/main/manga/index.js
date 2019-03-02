@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from '../../../componens/table'
+import TableTree, {Cell, Header, Headers, Row, Rows} from "@atlaskit/table-tree";
 import MangaModel from '../../../models/MangaModel'
 import Loader from '../../../componens/loader'
 
@@ -22,21 +22,26 @@ class Manga extends React.Component {
         const {mangas, isLoaded} = this.state
         return isLoaded ? <div style={{padding: 20}}>
                 <div className="box">
-                    <Table
-                        headers={this.headers}
-                        items={mangas}
-                        shema={[
-                            {
-                                template: (item) => item.id
-                            }, {
-                                template: (item) => item.title
-                            }, {
-                                template: (item) => item.description
-                            }, {
-                                template: (item) => item.image
-                            }
-                        ]}
-                    />
+                    <TableTree>
+                        <Headers>
+                            {this.headers.map(e => <Header width={200}>{e}</Header>)}
+                        </Headers>
+                        <Rows
+                            items={mangas}
+                            render={({id, title, description, image, children}) => (
+                                <Row
+                                    itemId={id}
+                                    items={children}
+                                    hasChildren={false}
+                                >
+                                    <Cell>{id}</Cell>
+                                    <Cell>{title}</Cell>
+                                    <Cell>{description}</Cell>
+                                    <Cell>{image}</Cell>
+                                </Row>
+                            )}
+                        />
+                    </TableTree>
                 </div>
             </div>
             : <Loader/>

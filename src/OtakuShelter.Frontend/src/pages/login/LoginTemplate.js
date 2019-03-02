@@ -11,7 +11,7 @@ function LoginTemplate({formData, formErrors, onChange, onSubmit}) {
 							<figure className="avatar">
 								<img alt="#" src={userImage} width={100} height={100}/>
 							</figure>
-							<form>
+							<form onSubmit={onSubmit}>
 								<div className="field">
 									<div className="control">
 										<input name="username" className="input" type="login" placeholder="Username" autoFocus=""
@@ -30,7 +30,7 @@ function LoginTemplate({formData, formErrors, onChange, onSubmit}) {
 								{/*Remember me*/}
 								{/*</label>*/}
 								{/*</div>*/}
-								<button onClick={onSubmit} type="button" className="button is-info is-fullwidth">Login</button>
+								<button type="submit" className="button is-info is-fullwidth">Login</button>
 							</form>
 						</div>
 						<p className="has-text-grey">

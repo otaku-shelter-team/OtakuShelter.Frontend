@@ -1,7 +1,7 @@
 import React from 'react'
-import Table from '../../../componens/table'
-import AccountModel from '../../../models/AccountModel'
+import TableTree, {Headers, Header, Rows, Row, Cell} from '@atlaskit/table-tree'
 import dayjs from 'dayjs'
+import AccountModel from '../../../models/AccountModel'
 import Loader from '../../../componens/loader'
 
 class Account extends React.Component {
@@ -23,21 +23,26 @@ class Account extends React.Component {
         const {accounts, isLoaded} = this.state
         return isLoaded ? <div style={{padding: 20}}>
                 <div className="box">
-                    <Table
-                        headers={this.headers}
-                        items={accounts}
-                        shema={[
-                            {
-                                template: (item) => item.id
-                            }, {
-                                template: (item) => item.roleId
-                            }, {
-                                template: (item) => item.username
-                            }, {
-                                template: (item) => dayjs(item.created).format('D/M/YYYY')
-                            }
-                        ]}
-                    />
+                    <TableTree>
+                        <Headers>
+                            {this.headers.map(e => <Header width={200}>{e}</Header>)}
+                        </Headers>
+                        <Rows
+                            items={accounts}
+                            render={({id, username, created, role, children}) => (
+                                <Row
+                                    itemId={id}
+                                    items={children}
+                                    hasChildren={false}
+                                >
+                                    <Cell>{id}</Cell>
+                                    <Cell>{username}</Cell>
+                                    <Cell>{dayjs(created).format('D/M/YYYY')}</Cell>
+                                    <Cell>{role}</Cell>
+                                </Row>
+                            )}
+                        />
+                    </TableTree>
                 </div>
             </div>
             : <Loader/>

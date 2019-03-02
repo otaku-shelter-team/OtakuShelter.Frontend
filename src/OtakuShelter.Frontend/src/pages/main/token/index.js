@@ -1,6 +1,6 @@
 import React from 'react'
 import dayjs from 'dayjs'
-import Table from '../../../componens/table'
+import TableTree,    {Cell, Header, Headers, Row, Rows} from "@atlaskit/table-tree";
 import Loader from '../../../componens/loader'
 import TokenModel from '../../../models/TokenModel'
 
@@ -24,21 +24,26 @@ class Token extends React.Component {
         return isLoaded
             ? <div style={{padding: 20}}>
                 <div className="box">
-                    <Table
-                        headers={this.headers}
-                        items={tokens}
-                        shema={[
-                            {
-                                template: (item) => item.id
-                            }, {
-                                template: (item) => item.username
-                            }, {
-                                template: (item) => dayjs(item.created).format('D/M/YYYY')
-                            }, {
-                                template: (item) => item.roleId
-                            }
-                        ]}
-                    />
+                    <TableTree>
+                        <Headers>
+                            {this.headers.map(e => <Header width={200}>{e}</Header>)}
+                        </Headers>
+                        <Rows
+                            items={tokens}
+                            render={({id, ipAddress, userAgent, created, children}) => (
+                                <Row
+                                    itemId={id}
+                                    items={children}
+                                    hasChildren={false}
+                                >
+                                    <Cell>{id}</Cell>
+                                    <Cell>{ipAddress}</Cell>
+                                    <Cell>{userAgent}</Cell>
+                                    <Cell>{dayjs(created).format('D/M/YYYY')}</Cell>
+                                </Row>
+                            )}
+                        />
+                    </TableTree>
                 </div>
             </div>
             : <Loader/>

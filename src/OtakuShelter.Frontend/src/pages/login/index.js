@@ -59,7 +59,6 @@ class Login extends React.Component {
 
     render() {
         const {formData, formErrors, isLoaded} = this.state
-        const {loaderName} = this
         return isLoaded
             ? <LoginTemplate formData={formData} formErrors={formErrors} onChange={this.onChange}
                              onSubmit={this.onSubmit}/>
