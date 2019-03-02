@@ -18,8 +18,6 @@ script:
     otakushelter_hosts=frontends \
     otakushelter_port=4004 \
     otakushelter_image=otakushelter/frontends \
-    otakushelter_server_name=otaku-shelter.ru \
+    otakushelter_server_name=staging.otaku-shelter.ru \
     otakushelter_build_number=$TRAVIS_BUILD_NUMBER \
-    otakushelter_database_password=$OTAKUSHELTER_DATABASE_PASSWORD \
-    otakushelter_secret=$OTAKUSHELTER_SECRET\" \
     -i inventories/staging"
