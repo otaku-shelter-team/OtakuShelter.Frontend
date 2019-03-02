@@ -19,5 +19,5 @@ script:
     otakushelter_port=4004 \
     otakushelter_image=otakushelter/frontends \
     otakushelter_server_name=staging.otaku-shelter.ru \
-    otakushelter_build_number=$TRAVIS_BUILD_NUMBER \
+    otakushelter_build_number=$TRAVIS_BUILD_NUMBER \" \
     -i inventories/staging"
