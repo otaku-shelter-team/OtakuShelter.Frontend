@@ -2,27 +2,27 @@ const proxy = require('http-proxy-middleware')
 
 module.exports = function (app) {
     app.use(proxy('/roles', {
-        target: 'http://account.otaku-shelter.ru/',
+        target: 'http://accounts.staging.otaku-shelter.ru/',
         changeOrigin: true,
     }))
     app.use(proxy('/accounts', {
-        target: 'http://account.otaku-shelter.ru/',
+        target: 'http://accounts.staging.otaku-shelter.ru/',
         changeOrigin: true,
     }))
     app.use(proxy('/admin/accounts', {
-        target: 'http://account.otaku-shelter.ru/',
+        target: 'http://accounts.staging.otaku-shelter.ru/',
         changeOrigin: true,
     }))
     app.use(proxy('/mangas', {
-        target: 'http://manga.otaku-shelter.ru/',
+        target: 'http://mangas.staging.otaku-shelter.ru/',
         changeOrigin: true,
     }))
     app.use(proxy('/admin/profiles', {
-        target: 'http://profile.otaku-shelter.ru/',
+        target: 'http://profiles.staging.otaku-shelter.ru/',
         changeOrigin: true,
     }))
     app.use(proxy('/tokens', {
-        target: 'http://account.otaku-shelter.ru/',
+        target: 'http://accounts.staging.otaku-shelter.ru/',
         changeOrigin: true,
     }))
 }
