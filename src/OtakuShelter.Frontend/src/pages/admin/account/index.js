@@ -5,7 +5,7 @@ import AccountModel from '../../../models/AccountModel'
 import Loader from '../../../componens/loader'
 
 class Account extends React.Component {
-    headers = ['Id', 'Role Id', 'Username', 'Created']
+    headers = ['Id', 'Username', 'Created', 'Role']
     state = {
         accounts: [],
         isLoaded: false

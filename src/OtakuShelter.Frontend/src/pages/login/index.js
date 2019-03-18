@@ -29,7 +29,7 @@ class Login extends React.Component {
         const token = status.getAccessToken();
 
         if (await token) {
-            history.push("/account")
+            history.push("/manga")
         }
     }
 
@@ -52,7 +52,7 @@ class Login extends React.Component {
                 .takeTokens(tokens)
                 .register()
 
-            history.push('profile')
+            history.push('/manga')
         })
 
     }

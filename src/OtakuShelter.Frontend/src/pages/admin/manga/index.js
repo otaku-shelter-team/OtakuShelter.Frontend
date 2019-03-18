@@ -3,7 +3,7 @@ import TableTree, {Cell, Header, Headers, Row, Rows} from "@atlaskit/table-tree"
 import MangaModel from '../../../models/MangaModel'
 import Loader from '../../../componens/loader'
 
-class Manga extends React.Component {
+class AdminManga extends React.Component {
     headers = ['Id', 'Title', 'Description', 'Image']
     state = {
         mangas: [],
@@ -48,4 +48,4 @@ class Manga extends React.Component {
     }
 }
 
-export default Manga
+export default AdminManga

@@ -1,43 +1,62 @@
 import Login from '../pages/login'
 import React from 'react'
-import Main from '../pages/main'
-import Profile from '../pages/main/profile'
-import Account from '../pages/main/account'
-import Manga from '../pages/main/manga'
-import Token from '../pages/main/token'
-import Statistics from '../pages/main/statistics'
+import AdminMain from '../pages/admin'
+import Profile from '../pages/admin/profile'
+import Account from '../pages/admin/account'
+import AdminManga from '../pages/admin/manga'
+import Token from '../pages/admin/token'
+import Statistics from '../pages/admin/statistics'
+import UserMain from "../pages/user";
+import MangaList from "../pages/user/mangaList";
+import Bookmarks from "../pages/user/bookmarks";
+import UserManga from "../pages/user/manga";
 
 const pages = [
-	{
-		name: 'login',
-		route: '/login',
-		render: (props) => <Login {...props} section={'login'}/>
-	},
-	{
-		name: 'profile',
-		route: '/profile',
-		render: (props) => <Main {...props} section={<Profile/>} sectionName="profile"/>
-	},
-	{
-		name: 'account',
-		route: '/account',
-		render: (props) => <Main {...props} section={<Account/>} sectionName="account"/>
-	},
-	{
-		name: 'manga',
-		route: '/manga',
-		render: (props) => <Main {...props} section={<Manga/>} sectionName="manga"/>
-	},
-	{
-		name: 'token',
-		route: '/token',
-		render: (props) => <Main {...props} section={<Token/>} sectionName="token"/>
-	},
-	{
-		name: 'statistics',
-		route: '/statistics',
-		render: (props) => <Main {...props} section={<Statistics/>} sectionName="statistics"/>
-	}
+    {
+        route: '/login',
+        render: (props) => <Login {...props} section={'login'}/>
+    },
+    // {
+    //     name: '()Профили',
+    //     route: '/profile',
+    //     render: (props) => <AdminMain {...props} section={<Profile/>} sectionName="profile"/>
+    // },
+    // {
+    //     name: '()Аккаунты',
+    //     route: '/account',
+    //     render: (props) => <AdminMain {...props} section={<Account/>} sectionName="account"/>
+    // },
+    // {
+    //     name: '()Манга Админ',
+    //     route: '/manga-admin',
+    //     render: (props) => <AdminMain {...props} section={<AdminManga/>} sectionName="manga"/>
+    // },
+    // {
+    //     name: '()Токены',
+    //     route: '/token',
+    //     render: (props) => <AdminMain {...props} section={<Token/>} sectionName="token"/>
+    // },
+    // {
+    //     name: '()Статистика',
+    //     route: '/statistics',
+    //     render: (props) => <AdminMain {...props} section={<Statistics/>} sectionName="statistics"/>
+    // },
+    {
+        id: 'manga-list',
+        name: 'Манга',
+        route: '/manga',
+        render: (props) => <UserMain {...props} section={<MangaList/>} sectionName="manga-list"/>,
+    },
+    {
+        id: 'bookmarks',
+        name: 'Закладки',
+        route: '/bookmarks',
+        render: (props) => <UserMain {...props} section={<Bookmarks/>} sectionName="bookmarks"/>,
+    },
+    {
+        route: '/manga/:id',
+        render: (props) => <UserMain {...props} section={<UserManga/>} sectionName="manga"/>
+    }
 ]
 
 export default pages

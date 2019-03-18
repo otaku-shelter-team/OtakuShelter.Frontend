@@ -1,33 +1,91 @@
-.App {
-  text-align: center;
+.navigation {
+  z-index: 999;
+  position: fixed;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.manga_list-appear {
+  opacity: 0.01;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.manga_list-appear.manga_list-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
 }
 
-.App-link {
-  color: #61dafb;
+.manga_image-appear {
+  opacity: 0.01;
+  margin-left: -50px
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.manga_image-appear.manga_image-appear-active {
+  opacity: 1;
+  margin-left: 0px;
+  transition: opacity .5s ease-in, margin-left .5s ease-in;
+}
+
+.manga_description-appear {
+  opacity: 0.01;
+  margin-right: -100px
+}
+
+.manga_description-appear.manga_description-appear-active {
+  opacity: 1;
+  margin-right: 0px;
+  transition: opacity .5s ease-in, margin-right .5s ease-in;
+}
+
+
+.box {
+  border-radius: 0;
+  flex-wrap: wrap;
+
+  span {
+    max-width: 14%;
   }
-  to {
-    transform: rotate(360deg);
+
+  .card {
+    max-width: 100%;
+    margin-right: 45px;
+    margin-bottom: 20px;
+  }
+}
+
+.pagination {
+  width: 100%;
+  margin-top: 5px !important;
+
+  &-next {
+    margin-right: 15px;
+  }
+}
+
+.columns {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-radius: 0 !important;
+}
+
+.column {
+  display: flex !important;
+}
+
+.is-column {
+  flex-direction: column;
+}
+
+@media only screen and (max-width: 768px) {
+  .navigation {
+    position: absolute;
+    z-index: 999;
+  }
+}
+
+@media only screen and (max-width: 1539px) {
+  .columns {
+    .column {
+      .card {
+        width: 100% !important;
+      }
+    }
   }
 }

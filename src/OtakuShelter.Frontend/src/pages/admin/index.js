@@ -1,7 +1,7 @@
 import React from 'react'
 import Navigation from '../../componens/navigation'
 
-class Main extends React.Component {
+class AdminMain extends React.Component {
 	render() {
 		const {section, sectionName} = this.props
 		return <div style={{display: 'flex'}}>
@@ -15,4 +15,4 @@ class Main extends React.Component {
 	}
 }
 
-export default Main
+export default AdminMain
