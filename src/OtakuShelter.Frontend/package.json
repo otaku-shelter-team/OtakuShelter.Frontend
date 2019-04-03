@@ -122,10 +122,6 @@
       "web.jsx",
       "jsx",
       "node"
-    ],
-    "watchPlugins": [
-      "C:\\Projects\\OtakuShelter.Admin\\src\\OtakuShelter.Manga.Frontend\\node_modules\\jest-watch-typeahead\\filename.js",
-      "C:\\Projects\\OtakuShelter.Admin\\src\\OtakuShelter.Manga.Frontend\\node_modules\\jest-watch-typeahead\\testname.js"
     ]
   },
   "babel": {
