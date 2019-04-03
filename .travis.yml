@@ -4,24 +4,27 @@ cache: false
 sudo: required
 language: node_js
 node_js:
-  - "11"
+  - "10"
 install:
 - sudo apt-get install sshpass
 script:
 - cd src/OtakuShelter.Frontend
 - npm i
 - npm run build
-- docker build -t otakushelter/frontends:1.0.${TRAVIS_BUILD_NUMBER} .
-- docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-- docker push otakushelter/frontends:1.0.$TRAVIS_BUILD_NUMBER
-- |
-  sudo sshpass -p $ANSIBLE_PASSWORD ssh -o StrictHostKeyChecking=no $ANSIBLE_CONNECTION \
-    "cd /root/OtakuShelter.Infrastructure/src && \
-    ansible-playbook deploy.yml \
-    -e \"\
-    otakushelter_hosts=frontends \
-    otakushelter_port=4004 \
-    otakushelter_image=otakushelter/frontends \
-    otakushelter_server_name=staging.otaku-shelter.ru \
-    otakushelter_build_number=$TRAVIS_BUILD_NUMBER \" \
-    -i inventories/staging"
+- cd /home/travis/.npm/
+- cat *.log > /tmp/output.txt
+- cat /tmp/output.txt
+#- docker build -t otakushelter/frontends:1.0.${TRAVIS_BUILD_NUMBER} .
+#- docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+#- docker push otakushelter/frontends:1.0.$TRAVIS_BUILD_NUMBER
+#- |
+#  sudo sshpass -p $ANSIBLE_PASSWORD ssh -o StrictHostKeyChecking=no $ANSIBLE_CONNECTION \
+#    "cd /root/OtakuShelter.Infrastructure/src && \
+#    ansible-playbook deploy.yml \
+#    -e \"\
+#    otakushelter_hosts=frontends \
+#    otakushelter_port=4004 \
+#    otakushelter_image=otakushelter/frontends \
+#    otakushelter_server_name=staging.otaku-shelter.ru \
+#    otakushelter_build_number=$TRAVIS_BUILD_NUMBER \" \
+#    -i inventories/staging"
