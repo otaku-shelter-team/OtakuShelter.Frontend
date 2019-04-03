@@ -11,7 +11,7 @@ script:
 - cd src/OtakuShelter.Frontend
 - npm i
 - npm run build
-- cd /home/travis/.npm/
+- cd /home/travis/.npm/_logs/
 - cat *.log > /tmp/output.txt
 - cat /tmp/output.txt
 #- docker build -t otakushelter/frontends:1.0.${TRAVIS_BUILD_NUMBER} .
