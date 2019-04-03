@@ -4,13 +4,13 @@ cache: false
 sudo: required
 language: node_js
 node_js:
-  - "10"
+  - "11"
 install:
 - sudo apt-get install sshpass
 script:
 - cd src/OtakuShelter.Frontend
 - npm i
-- npm run build
+- yarn build
 - docker build -t otakushelter/frontends:1.0.${TRAVIS_BUILD_NUMBER} .
 - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
 - docker push otakushelter/frontends:1.0.$TRAVIS_BUILD_NUMBER
