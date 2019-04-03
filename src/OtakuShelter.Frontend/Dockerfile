@@ -5,5 +5,5 @@ RUN npm install
 ENTRYPOINT [ "npm", "run", "build" ] 
 
 FROM nginx:1.15.10-alpine as runtime
-WORKDIR /otakushelter/frontend/src/OtakuShelter.Frontend
+RUN ls /otakushelter/frontend/src/OtakuShelter.Frontend
 COPY --from=build /otakushelter/frontend/src/OtakuShelter.Frontend/build /usr/share/nginx/html
