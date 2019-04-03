@@ -2,12 +2,15 @@ os: linux
 dist: trusty
 cache: false
 sudo: required
-language: bash
-services: docker
+language: node_js
+node_js:
+  - "11"
 install:
 - sudo apt-get install sshpass
 script:
-- docker build -t otakushelter/frontends:1.0.${TRAVIS_BUILD_NUMBER} -f src/OtakuShelter.Frontend/Dockerfile .
+- cd src/OtakuShelter.Frontend
+- npm run build
+- docker build -t otakushelter/frontends:1.0.${TRAVIS_BUILD_NUMBER} .
 - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
 - docker push otakushelter/frontends:1.0.$TRAVIS_BUILD_NUMBER
 - |
