@@ -1,15 +1,27 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import nanoid from 'nanoid'
 import logo from '../../assets/icons/otaku.png'
 import avatar from '../../assets/icons/avatar.svg'
 import menu from '../../assets/icons/menu.svg'
 import './Navigation.scss'
-import pages from '../../configs/pagesConfig'
 
 class Navigation extends React.Component {
     state = {
-        margin: 0,
-        activeItem: this.props.sectionName
+        margin: -150,
+        activeItem: this.props.sectionName,
+        items: this.props.sections
+    }
+
+    componentDidMount() {
+        document.addEventListener('click', this.handleClickOutside, false);
+    }
+
+    handleClickOutside = (e) => {
+        const navigation = document.getElementsByClassName('navigation')[0];
+        if (!e.path.includes(navigation)) {
+            this.setState({margin: -150});
+        }
     }
 
     onMenuClick = () => {
@@ -18,7 +30,7 @@ class Navigation extends React.Component {
     }
 
     render() {
-        const {margin, activeItem} = this.state
+        const {margin, activeItem, items} = this.state
         return <div>
             <div className="navigation__wrapper"/>
             <div style={{marginLeft: margin}} className="navigation">
@@ -29,16 +41,23 @@ class Navigation extends React.Component {
                 <div className="navigation__content">
                     <div className="navigation__main">
                         <ul>
-                            {pages.map((page) => {
-                                if (page.name !== 'login') {
-                                    return (<Link to={page.route}>
+                            {items.map((page) => {
+                                if (page.isNotMenuItem !== false) {
+                                    return (<Link key={nanoid()} to={page.route}>
                                         <li
                                             className={`navigation__item ${page.id === activeItem ? 'navigation__item-active' : ''}`}
                                         >
                                             {page.name}
+                                            {page.id !== undefined && (
+                                                <img style={{
+                                                    width: 30,
+                                                    marginRight: 10
+                                                }} width={100} src={page.icon} alt="#"/>
+                                            )}
                                         </li>
                                     </Link>)
                                 }
+                                return null
                             })}
                         </ul>
                     </div>

@@ -48,7 +48,7 @@ class Login extends React.Component {
             isLoaded: false
         }, async () => {
             const tokens = await TokenModel.getUserTokens(username, password)
-            const register = new Tokens()
+            new Tokens()
                 .takeTokens(tokens)
                 .register()
 

@@ -1,20 +1,24 @@
 import Login from '../pages/login'
 import React from 'react'
-import AdminMain from '../pages/admin'
-import Profile from '../pages/admin/profile'
-import Account from '../pages/admin/account'
-import AdminManga from '../pages/admin/manga'
-import Token from '../pages/admin/token'
-import Statistics from '../pages/admin/statistics'
+// import AdminMain from '../pages/admin'
+// import Profile from '../pages/admin/profile'
+// import Account from '../pages/admin/account'
+// import AdminManga from '../pages/admin/manga'
+// import Token from '../pages/admin/token'
+// import Statistics from '../pages/admin/statistics'
 import UserMain from "../pages/user";
 import MangaList from "../pages/user/mangaList";
 import Bookmarks from "../pages/user/bookmarks";
 import UserManga from "../pages/user/manga";
+import icons from "./iconsConfig";
 
 const pages = [
     {
+        id: 'login',
+        name: 'Логин',
         route: '/login',
-        render: (props) => <Login {...props} section={'login'}/>
+        render: (props) => <Login {...props} section={'login'}/>,
+        isNotMenuItem: false
     },
     // {
     //     name: '()Профили',
@@ -44,18 +48,23 @@ const pages = [
     {
         id: 'manga-list',
         name: 'Манга',
+        icon: icons['manga-list'],
         route: '/manga',
-        render: (props) => <UserMain {...props} section={<MangaList/>} sectionName="manga-list"/>,
+        render: (props) => <UserMain {...props} component={<MangaList/>}/>,
     },
     {
         id: 'bookmarks',
         name: 'Закладки',
+        icon: icons['bookmarks'],
         route: '/bookmarks',
-        render: (props) => <UserMain {...props} section={<Bookmarks/>} sectionName="bookmarks"/>,
+        render: (props) => <UserMain {...props} component={<Bookmarks/>}/>,
     },
     {
+        id: 'manga',
+        name: 'manga',
         route: '/manga/:id',
-        render: (props) => <UserMain {...props} section={<UserManga/>} sectionName="manga"/>
+        render: (props) => <UserMain {...props} component={<UserManga/>}/>,
+        isNotMenuItem: false
     }
 ]
 

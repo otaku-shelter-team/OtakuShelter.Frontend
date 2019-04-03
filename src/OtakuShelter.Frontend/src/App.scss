@@ -9,7 +9,7 @@
 
 .manga_list-appear.manga_list-appear-active {
   opacity: 1;
-  transition: opacity .5s ease-in;
+  transition: opacity .2s ease-in;
 }
 
 .manga_image-appear {
@@ -19,19 +19,19 @@
 
 .manga_image-appear.manga_image-appear-active {
   opacity: 1;
-  margin-left: 0px;
-  transition: opacity .5s ease-in, margin-left .5s ease-in;
+  margin-left: 0;
+  transition: opacity .15s ease-in, margin-left .15s ease-in;
 }
 
 .manga_description-appear {
   opacity: 0.01;
-  margin-right: -100px
+  margin-right: -100px;
 }
 
 .manga_description-appear.manga_description-appear-active {
   opacity: 1;
-  margin-right: 0px;
-  transition: opacity .5s ease-in, margin-right .5s ease-in;
+  margin-right: 0;
+  transition: opacity .15s ease-in, margin-right .15s ease-in;
 }
 
 
@@ -40,7 +40,7 @@
   flex-wrap: wrap;
 
   span {
-    max-width: 14%;
+    max-width: 16.66%;
   }
 
   .card {
@@ -63,10 +63,6 @@
   margin-left: 0 !important;
   margin-right: 0 !important;
   border-radius: 0 !important;
-}
-
-.column {
-  display: flex !important;
 }
 
 .is-column {

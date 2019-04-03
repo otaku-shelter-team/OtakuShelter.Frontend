@@ -1,6 +1,6 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import * as nanoid from "nanoid";
+import Card from "./card";
 
 class MangaList extends React.Component {
     a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
@@ -8,38 +8,7 @@ class MangaList extends React.Component {
     render() {
         return <div className="box is-flex">
             {this.a.map(e => (
-                    <ReactCSSTransitionGroup
-                        transitionName="manga_list"
-                        transitionAppear={true}
-                        transitionAppearTimeout={500}
-                        transitionEnter={false}
-                        transitionLeave={false}
-                    >
-                        <div className="card">
-                            <Link to={`/manga/${e}`}>
-                                <div className="card-image">
-                                    <img
-                                        src="http://imgcover.mangachan.me/showfull_retina/uploads/posts/2016-08/thumbs/1470471618_20160416174002_anmsg.jpg"
-                                        alt="Placeholder image"/>
-                                </div>
-                                <div className="card-content">
-                                    <div className="media">
-                                        <div className="media-content">
-                                            <p className="title is-4">John Smith</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="content">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                                        <a href="#">#css</a> <a href="#">#responsive</a>
-                                        <br/>
-                                        <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                                    </div>
-                                </div>
-                            </Link>
-                        </div>
-                    </ReactCSSTransitionGroup>
+                    <Card key={nanoid()} mangaItem={e}/>
                 )
             )}
             <nav className="pagination is-small" role="navigation" aria-label="pagination">

@@ -1,15 +1,16 @@
 import React from "react";
-import Navigation from "../admin";
+import Navigation from "../../componens/navigation";
+import pages from "../../configs/pagesConfig";
 
 class UserMain extends React.Component {
     render() {
-        const {section, sectionName} = this.props;
+        const {component} = this.props;
         return <div style={{display: 'flex'}}>
             <div>
-                <Navigation sectionName={sectionName}/>
+                <Navigation sections={pages} sectionName={component.id}/>
             </div>
             <div style={{width: '100%'}}>
-                {section}
+                {component}
             </div>
         </div>
     }
