@@ -22,7 +22,7 @@ class Card extends React.Component {
         >
             <div className="card" onMouseEnter={() => this.onHover(true)}
                  onMouseLeave={() => this.onHover(false)}>
-                <Link to={`/manga/${mangaItem}`}>
+               <div>
                     <div className="card-image">
                         <img
                             src="http://imgcover.mangachan.me/showfull_retina/uploads/posts/2016-08/thumbs/1470471618_20160416174002_anmsg.jpg"
@@ -44,8 +44,8 @@ class Card extends React.Component {
                             <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
                         </div>
                     </div>
-                </Link>
-                {isHovered && (<InfoWrapper/>)}
+               </div>
+                {isHovered && (<InfoWrapper mangaItem={mangaItem}/>)}
             </div>
         </ReactCSSTransitionGroup>
     }
