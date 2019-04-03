@@ -1,5 +1,4 @@
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import {Link} from "react-router-dom";
 import React from "react";
 import InfoWrapper from "./infoWrapper";
 
@@ -39,7 +38,7 @@ class Card extends React.Component {
                         <div className="content">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                             Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                            <a href="#">#css</a> <a href="#">#responsive</a>
+                            <a>#css</a> <a>#responsive</a>
                             <br/>
                             <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
                         </div>

@@ -1,5 +1,4 @@
 import React from "react";
-import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import Table from "../../../../componens/table";
 
 class ChaptersTable extends React.Component {
