@@ -1,5 +1,8 @@
-import {combineReducers} from 'redux'
+import {combineReducers} from "redux";
+import SearchMangaFieldReducer from "./SearchMangaFieldReducer";
 
-const reducers = combineReducers({})
+const reducers = combineReducers({
+    searchMangaField: SearchMangaFieldReducer
+})
 
 export default reducers

@@ -4,6 +4,7 @@ module.exports = function (app) {
     app.use(proxy('/roles', {
         target: 'http://accounts.staging.otaku-shelter.ru/',
         changeOrigin: true,
+
     }))
     app.use(proxy('/accounts', {
         target: 'http://accounts.staging.otaku-shelter.ru/',
