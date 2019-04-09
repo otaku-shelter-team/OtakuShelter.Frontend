@@ -4,7 +4,6 @@ module.exports = function (app) {
     app.use(proxy('/roles', {
         target: 'http://accounts.staging.otaku-shelter.ru/',
         changeOrigin: true,
-
     }))
     app.use(proxy('/accounts', {
         target: 'http://accounts.staging.otaku-shelter.ru/',
@@ -15,6 +14,22 @@ module.exports = function (app) {
         changeOrigin: true,
     }))
     app.use(proxy('/mangas', {
+        target: 'http://mangas.staging.otaku-shelter.ru/',
+        changeOrigin: true,
+    }))
+    app.use(proxy('/authors', {
+        target: 'http://mangas.staging.otaku-shelter.ru/',
+        changeOrigin: true,
+    }))
+    app.use(proxy('/chapters', {
+        target: 'http://mangas.staging.otaku-shelter.ru/',
+        changeOrigin: true,
+    }))
+    app.use(proxy('/tags', {
+        target: 'http://mangas.staging.otaku-shelter.ru/',
+        changeOrigin: true,
+    }))
+    app.use(proxy('/translators', {
         target: 'http://mangas.staging.otaku-shelter.ru/',
         changeOrigin: true,
     }))

@@ -11,26 +11,7 @@ class Login extends React.Component {
             password: ''
         },
         formErrors: {},
-        isLoaded: false
-    }
-
-    async componentDidMount() {
-        const {history} = this.props;
-
-        const status = new Tokens().extractRefreshToken()
-
-        if (status === false) {
-            this.setState({
-                isLoaded: true
-            })
-            return
-        }
-
-        const token = status.getAccessToken();
-
-        if (await token) {
-            history.push("/manga")
-        }
+        isLoaded: true
     }
 
     onChange = (name, value) => {
@@ -43,7 +24,6 @@ class Login extends React.Component {
 
     onSubmit = () => {
         const {username, password} = this.state.formData
-        const {history} = this.props
         this.setState({
             isLoaded: false
         }, async () => {
@@ -51,10 +31,8 @@ class Login extends React.Component {
             new Tokens()
                 .takeTokens(tokens)
                 .register()
-
-            history.push('/manga')
+            document.location.reload(true)
         })
-
     }
 
     render() {

@@ -13,13 +13,6 @@ import UserManga from "../pages/user/manga";
 import icons from "./iconsConfig";
 
 const pages = [
-    {
-        id: 'login',
-        name: 'Логин',
-        route: '/login',
-        render: (props) => <Login {...props} section={'login'}/>,
-        isNotMenuItem: false
-    },
     // {
     //     name: '()Профили',
     //     route: '/profile',
@@ -50,20 +43,20 @@ const pages = [
         name: 'Манга',
         icon: icons['manga-list'],
         route: '/manga',
-        render: (props) => <UserMain {...props} component={<MangaList/>}/>,
+        render: (props) => <UserMain {...props} component={<MangaList {...props}/>}/>,
     },
     {
         id: 'bookmarks',
         name: 'Закладки',
         icon: icons['bookmarks'],
         route: '/bookmarks',
-        render: (props) => <UserMain {...props} component={<Bookmarks/>}/>,
+        render: (props) => <UserMain {...props} component={<Bookmarks {...props}/>}/>,
     },
     {
         id: 'manga',
         name: 'manga',
         route: '/manga/:id',
-        render: (props) => <UserMain {...props} component={<UserManga/>}/>,
+        render: (props) => <UserMain {...props} component={<UserManga {...props}/>}/>,
         isNotMenuItem: false
     }
 ]

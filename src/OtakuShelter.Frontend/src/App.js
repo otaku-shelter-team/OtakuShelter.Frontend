@@ -1,10 +1,12 @@
 import React, {Fragment} from 'react'
-import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
 import ModalMangaSearch from "./componens/modalSearch";
 import pages from './configs/pagesConfig'
 import './configs/tokenConfig'
 import './App.scss'
 import {connect} from "react-redux";
+import Tokens from "./configs/tokenConfig";
+import Login from "./pages/login";
 
 class App extends React.Component {
     state = {
@@ -31,21 +33,26 @@ class App extends React.Component {
         const {isActive} = this.state
         return (
             <Fragment>
-                <Router>
-                    <div>
-                        {pages.map((page) =>
-                            <Route
-                                key={page.name}
-                                exact
-                                path={page.route}
-                                render={(props) => page.render(props)}
-                            />
-                        )}
-                        <Redirect from="/" to="/login"/>
-                    </div>
-                </Router>
-                {isActive && <ModalMangaSearch isActive={isActive} onCloseModal={this.onCloseModal}
-                                               onSearchSubmit={this.onSearchSubmit}/>}
+                {console.log(!new Tokens().extractRefreshToken())}
+                {!new Tokens().extractRefreshToken() ? <Login/> : (
+                    <Fragment>
+                        <Router>
+                            <Switch>
+                                {pages.map((page) =>
+                                    <Route
+                                        key={page.name}
+                                        exact
+                                        path={page.route}
+                                        render={(props) => page.render(props)}
+                                    />
+                                )}
+                                <Redirect from="/" to="/manga"/>
+                            </Switch>
+                        </Router>
+                        {isActive && <ModalMangaSearch isActive={isActive} onCloseModal={this.onCloseModal}
+                                                       onSearchSubmit={this.onSearchSubmit}/>}
+                    </Fragment>
+                )}
             </Fragment>
         )
     }

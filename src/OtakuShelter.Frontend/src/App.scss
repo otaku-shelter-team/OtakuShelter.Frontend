@@ -3,49 +3,12 @@
   position: fixed;
 }
 
-.manga_list-appear {
-  opacity: 0.01;
-}
-
-.manga_list-appear.manga_list-appear-active {
-  opacity: 1;
-  transition: opacity .2s ease-in;
-}
-
-.manga_image-appear {
-  opacity: 0.01;
-  margin-left: -50px
-}
-
-.manga_image-appear.manga_image-appear-active {
-  opacity: 1;
-  margin-left: 0;
-  transition: opacity .15s ease-in, margin-left .15s ease-in;
-}
-
-.manga_description-appear {
-  opacity: 0.01;
-  margin-right: -100px;
-}
-
-.manga_description-appear.manga_description-appear-active {
-  opacity: 1;
-  margin-right: 0;
-  transition: opacity .15s ease-in, margin-right .15s ease-in;
-}
-
-
 .box {
   border-radius: 0;
   flex-wrap: wrap;
 
   span {
     max-width: 16.66%;
-  }
-
-  .card {
-    max-width: 100%;
-    margin: 0 22px 20px 22px;
   }
 }
 

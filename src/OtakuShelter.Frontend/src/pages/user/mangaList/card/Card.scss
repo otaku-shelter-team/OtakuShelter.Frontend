@@ -1,0 +1,12 @@
+.media-content {
+  p {
+    text-align: center;
+  }
+}
+.card-image{
+  display: flex !important;
+  justify-content: center;
+  img {
+    max-height: 300px;
+  }
+}
