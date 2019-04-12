@@ -4,7 +4,6 @@ import ChaptersTable from "./chaptersTable";
 import CustomLoader from "../../../componens/loader";
 import MangaModel from "../../../models/MangaModel";
 import AuthorModel from "../../../models/AuthorModel";
-import ChapterModel from "../../../models/ChapterModel";
 import TagModel from "../../../models/TagModel";
 import TranslatorModel from "../../../models/TranslatorModel";
 

@@ -1,7 +1,6 @@
 import React, {Fragment} from "react"
 import {Link} from "react-router-dom";
 import "./Description.scss"
-import {withRouter} from "react-router";
 
 class Description extends React.Component {
     render() {

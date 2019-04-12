@@ -4,7 +4,7 @@ cache: false
 sudo: required
 language: node_js
 node_js:
-  - "11"
+  - "10.15.3"
 install:
 - sudo apt-get install sshpass
 script:
