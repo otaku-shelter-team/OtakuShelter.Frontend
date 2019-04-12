@@ -33,8 +33,7 @@ class App extends React.Component {
         const {isActive} = this.state
         return (
             <Fragment>
-                {console.log(!new Tokens().extractRefreshToken())}
-                {!new Tokens().extractRefreshToken() ? <Login/> : (
+                {new Tokens().extractRefreshToken() === false ? <Login/> : (
                     <Fragment>
                         <Router>
                             <Switch>
