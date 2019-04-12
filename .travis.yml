@@ -9,7 +9,7 @@ install:
 - sudo apt-get install sshpass
 script:
 - cd src/OtakuShelter.Frontend
-- npm i
+- yarn install
 - yarn build
 - docker build -t otakushelter/frontends:1.0.${TRAVIS_BUILD_NUMBER} .
 - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
