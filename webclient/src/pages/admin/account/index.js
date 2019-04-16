@@ -1,5 +1,5 @@
 import React from 'react'
-import TableTree, {Headers, Header, Rows, Row, Cell} from '@atlaskit/table-tree'
+import TableTree, {Cell, Header, Headers, Row, Rows} from '@atlaskit/table-tree'
 import dayjs from 'dayjs'
 import AccountModel from '../../../models/AccountModel'
 import Loader from '../../../componens/loader'

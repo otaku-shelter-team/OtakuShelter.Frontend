@@ -1,6 +1,6 @@
 import React from 'react'
 import dayjs from 'dayjs'
-import TableTree,    {Cell, Header, Headers, Row, Rows} from "@atlaskit/table-tree";
+import TableTree, {Cell, Header, Headers, Row, Rows} from "@atlaskit/table-tree";
 import Loader from '../../../componens/loader'
 import TokenModel from '../../../models/TokenModel'
 

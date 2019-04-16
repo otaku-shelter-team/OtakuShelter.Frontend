@@ -1,0 +1,46 @@
+apply plugin: "com.moowork.node"
+
+node {
+    version = "10.15.3"
+    yarnVersion = "1.13.0"
+    download = true
+}
+
+ext {
+    webclientBuildDir = "$projectDir/build"
+}
+
+task clean {
+    final def webDir = "${rootDir}/webclient"
+    delete "${webDir}/.gradle"
+    delete "${webDir}/node_modules"
+    delete "${webDir}/build"
+    delete "${webDir}/coverage"
+}
+
+task buildWebclient {
+    outputs.dir {
+        project.file(webclientBuildDir)
+    }
+    doFirst {
+        file(webclientBuildDir).mkdirs()
+    }
+}
+
+task copyWebclient(type: Copy) {
+        from webclientBuildDir into "$rootDir/backend/resources/static/"
+}
+
+buildWebclient.dependsOn(clean)
+buildWebclient.dependsOn(yarn_install)
+buildWebclient.dependsOn(yarn_run_build)
+buildWebclient.finalizedBy(copyWebclient)
+
+task assemble {}
+assemble.dependsOn(buildWebclient)
+
+task check {}
+check.dependsOn(yarn_run_test)
+
+task runAll {}
+runAll.dependsOn(yarn_run_start)
