@@ -3,6 +3,10 @@
   position: fixed;
 }
 
+.modal{
+  justify-content: unset !important;
+}
+
 .box {
   border-radius: 0;
   flex-wrap: wrap;

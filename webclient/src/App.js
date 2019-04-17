@@ -2,10 +2,10 @@ import React, {Fragment} from 'react'
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
 import _debounce from 'lodash/debounce';
 import ModalMangaSearch from "./componens/modalSearch";
+import {connect} from "react-redux";
 import pages from './configs/pagesConfig'
 import './configs/tokenConfig'
 import './App.scss'
-import {connect} from "react-redux";
 import Tokens from "./configs/tokenConfig";
 import Login from "./pages/login";
 import MangaModel from "./models/MangaModel";
@@ -13,7 +13,10 @@ import MangaModel from "./models/MangaModel";
 class App extends React.Component {
     state = {
         isActive: false,
-        isSearch: false
+        isSearch: false,
+        mangas: [],
+        isMangaClick: false,
+        currentMangaId: null
     }
 
     KeyPress = (e) => {
@@ -40,9 +43,26 @@ class App extends React.Component {
         }
     }
 
+    onMangaCardClick = (mangaId) => {
+        this.onCloseModal()
+        this.setState({
+                currentMangaId: mangaId,
+                isMangaClick: true
+            }, () => {
+                this.setState({
+                    currentMangaId: null,
+                    isMangaClick: false
+                })
+            }
+        )
+    }
+
     onChangeSearch = _debounce(async (value) => {
+        if (value === "")
+            return
         try {
-            const response = await MangaModel.getMangas({title: value})
+            const mangas = await MangaModel.getMangas({title: value})
+            this.setState({mangas})
         } catch (e) {
 
         }
@@ -50,7 +70,7 @@ class App extends React.Component {
 
     render() {
         document.onkeydown = this.KeyPress
-        const {isActive, isSearch} = this.state
+        const {isActive, isSearch, isMangaClick, mangas, currentMangaId} = this.state
         return (
             <Fragment>
                 {new Tokens().extractRefreshToken() === false ? <Login/> : (
@@ -58,6 +78,7 @@ class App extends React.Component {
                         <Router>
                             <Switch>
                                 {isSearch && <Redirect to="/manga"/>}
+                                {isMangaClick && <Redirect to={`/manga/${currentMangaId}`}/>}
                                 {pages.map((page) =>
                                     <Route
                                         key={page.name}
@@ -69,7 +90,10 @@ class App extends React.Component {
                                 <Redirect from="/" to="/manga"/>
                             </Switch>
                         </Router>
-                        {isActive && <ModalMangaSearch isActive={isActive} onCloseModal={this.onCloseModal}
+                        {isActive && <ModalMangaSearch mangas={mangas}
+                                                       onMangaCardClick={this.onMangaCardClick}
+                                                       isActive={isActive}
+                                                       onCloseModal={this.onCloseModal}
                                                        onChangeSearch={this.onChangeSearch}
                                                        onSearchSubmit={this.onSearchSubmit}/>}
                     </Fragment>
@@ -79,10 +103,17 @@ class App extends React.Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    onSearchSubmit: value => dispatch({type: 'SET_SEARCH_MANGAS', value}),
-})
+const
+    mapDispatchToProps = (dispatch) => ({
+        onSearchSubmit: value => dispatch({type: 'SET_SEARCH_MANGAS', value}),
+    })
 
-export default connect(() => {
-}, mapDispatchToProps)(App)
+export default connect(
+    () => {
+    }
+
+    ,
+    mapDispatchToProps
+)
+(App)
 

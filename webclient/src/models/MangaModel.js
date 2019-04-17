@@ -1,6 +1,12 @@
 import axios from 'axios'
 
 class MangaModel {
+    /**
+     *
+     * @param query
+     * @returns {Promise<Array | never>}
+     * @description return list of manga
+     */
     static getMangas = (query) => axios.get('/mangas', {
         params: query
     })

@@ -16,15 +16,23 @@ sourceSets {
     test.resources.srcDirs = ['testresources']
 }
 
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Greenwich.RELEASE"
+    }
+}
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "ch.qos.logback:logback-classic:$logback_version"
     compile "org.springframework.boot:spring-boot-dependencies:$spring_boot_version"
-    compile 'org.springframework.boot:spring-boot-starter-webflux'
+    compile "org.springframework.cloud:spring-cloud-starter-netflix-zuul"
     compile 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-webflux'
     compile "org.springframework.boot:spring-boot-starter-aop"
     compile "org.springframework.boot:spring-boot-starter-web"
 }
+
 
 task cleanBackend(type: Delete) {
     if ((customizedEnvironment["BUNDLE_WEBCLIENT"] ?: "true").toBoolean()) {
@@ -35,6 +43,12 @@ task cleanBackend(type: Delete) {
     }
     delete "out"
     delete "build"
+}
+
+task productionBuild(type: Copy) {
+    from "$rootDir/backend/build/libs/" into "$rootDir/production/"
+    destinationDir file("$rootDir/production/")
+    rename "backend.jar", "otaku-shelter.jar"
 }
 
 compileKotlin {
@@ -55,4 +69,10 @@ if ((customizedEnvironment["SPRING_ACTIVE_PROFILE"]) == "development") {
     tasks.compileKotlin.dependsOn(':webclient:devWebclient')
 }
 
+tasks.build.finalizedBy(productionBuild)
+
 tasks.compileKotlin.dependsOn(cleanBackend)
+
+
+
+

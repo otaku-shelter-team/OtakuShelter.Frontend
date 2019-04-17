@@ -28,6 +28,7 @@ ext {
 task cleanOutputProject(type: Delete) {
     delete "out"
     delete "build"
+    delete "production"
 }
 
 task clean {}

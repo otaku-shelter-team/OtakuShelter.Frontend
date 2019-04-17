@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+zuul:
+  routes:
+    mangas:
+      path: /mangas/**
+      url: http://mangas.staging.otaku-shelter.ru/mangas
+    authors:
+      path: /authors/**
+      url: http://mangas.staging.otaku-shelter.ru/authors
+    bookmarks:
+      path: /bookmarks/**
+      url: http://mangas.staging.otaku-shelter.ru/bookmarks
+    chapters:
+      path: /chapters/**
+      url: http://mangas.staging.otaku-shelter.ru/chapters
+    pages:
+      path: /pages/**
+      url: http://mangas.staging.otaku-shelter.ru/pages
+    tags:
+      path: /tags/**
+      url: http://mangas.staging.otaku-shelter.ru/tags
+    translators:
+      path: /translators/**
+      url: http://mangas.staging.otaku-shelter.ru/translators
+    types:
+      path: /types/**
+      url: http://mangas.staging.otaku-shelter.ru/types

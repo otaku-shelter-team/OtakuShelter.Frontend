@@ -3,6 +3,7 @@ package com.otaku
 import com.otaku.utils.JavaScriptBundleResourceResolver
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.CacheControl.*
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit.*
 /**
  * @author Ilya Osadchiy
  */
+@EnableZuulProxy
 @SpringBootApplication
 class Application {
     @Configuration

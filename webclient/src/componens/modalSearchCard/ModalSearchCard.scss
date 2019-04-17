@@ -1,0 +1,22 @@
+.modal-search-card {
+  background-color: white;
+  display: flex;
+  padding: 5px;
+
+  &__image {
+    max-width: 13%;
+    height: auto;
+  }
+
+  &__content {
+    padding-left: 30px;
+  }
+
+  &__title {
+    margin-bottom: 0 !important;
+  }
+
+  &__description {
+    font-size: 17px;
+  }
+}
