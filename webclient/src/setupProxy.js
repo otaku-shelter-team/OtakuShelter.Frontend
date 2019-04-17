@@ -25,6 +25,10 @@ module.exports = function (app) {
         target: 'http://mangas.staging.otaku-shelter.ru/',
         changeOrigin: true,
     }))
+    app.use(proxy('/pages', {
+        target: 'http://mangas.staging.otaku-shelter.ru/',
+        changeOrigin: true,
+    }))
     app.use(proxy('/tags', {
         target: 'http://mangas.staging.otaku-shelter.ru/',
         changeOrigin: true,

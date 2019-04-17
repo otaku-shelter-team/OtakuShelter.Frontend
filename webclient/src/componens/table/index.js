@@ -6,16 +6,16 @@ import _isEmpty from "lodash/isEmpty";
 import "flexboxgrid2/flexboxgrid2.css";
 import "./Table.scss";
 
-const renderRow = ({ item, itemSchema, itemKey, className }) => {
+const renderRow = ({item, itemSchema, itemKey, className, onClick}) => {
     const itemClasses = classNames({
         "bg-table__item": true,
         [className]: className
     });
     return (
         <div key={item[itemKey]} className={itemClasses}>
-            <div className="row">
+            <div className="columns">
                 {itemSchema.map(field => (
-                    <div key={field.name} className={field.className || "col-xs-1"}>
+                    <div key={field.name} className={`column ${field.className}` || "col-xs-1"} onClick={() => onClick(item)}>
                         {!_isEmpty(field.attributes) &&
                         field.attributes.map(attr => (
                             <div key={attr} className="bg-table__attribute">
@@ -36,7 +36,8 @@ export default function Table({
                                   placeholder,
                                   children,
                                   className,
-                                  itemKey
+                                  itemKey,
+                                  onClick
                               }) {
     const tableClasses = classNames({
         "bg-table": true,
@@ -45,9 +46,9 @@ export default function Table({
     return (
         <div className={tableClasses}>
             <div className="bg-table__header">
-                <div className="row">
+                <div className="columns">
                     {schema.map(field => (
-                        <div key={field.name} className={field.className || "col-xs-1"}>
+                        <div key={field.name} className={`column ${field.className}` || "col-xs-1"}>
                             {
                                 field.headerTemplate
                                     ? field.headerTemplate(field)
@@ -65,7 +66,7 @@ export default function Table({
                     item =>
                         children
                             ? children(item, schema, renderRow)
-                            : renderRow({ item, itemSchema: schema, itemKey })
+                            : renderRow({item, itemSchema: schema, itemKey, onClick})
                 )}
             </div>
         </div>

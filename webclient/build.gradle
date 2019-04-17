@@ -27,6 +27,15 @@ task buildWebclient {
     }
 }
 
+task devWebclient{
+    final def webDir = "${rootDir}/webclient"
+    delete "${webDir}/node_modules"
+}
+devWebclient.dependsOn(yarn_install)
+devWebclient.finalizedBy(yarn_dev)
+
+
+
 task copyWebclient(type: Copy) {
         from webclientBuildDir into "$rootDir/backend/resources/static/"
 }

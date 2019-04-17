@@ -2,6 +2,7 @@ import React from "react";
 import Card from "./card";
 import MangaModel from "../../../models/MangaModel";
 import CustomLoader from "../../../componens/loader";
+import {connect} from "react-redux";
 
 class MangaList extends React.Component {
     state = {
@@ -10,16 +11,21 @@ class MangaList extends React.Component {
     }
 
     async componentDidMount() {
-        try {
-            const mangas = await MangaModel.getMangas()
-            this.setState({mangas, isLoaded: true})
-        } catch (e) {
-
+        const {searchValue} = this.props
+        if (searchValue === undefined) {
+            try {
+                const mangas = await MangaModel.getMangas()
+                this.setState({mangas, isLoaded: true})
+            } catch (e) {
+            }
+        } else {
+            this.setState({mangas: searchValue, isLoaded: true})
         }
     }
 
     render() {
         const {mangas, isLoaded} = this.state
+        console.log(mangas)
         return !isLoaded
             ? <CustomLoader/>
             : (
@@ -48,4 +54,8 @@ class MangaList extends React.Component {
     }
 }
 
-export default MangaList
+const mapStateToProps = (state) => ({
+    searchValue: state.searchMangas.value,
+})
+
+export default connect(mapStateToProps)(MangaList)

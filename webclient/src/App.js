@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react'
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
+import _debounce from 'lodash/debounce';
 import ModalMangaSearch from "./componens/modalSearch";
 import pages from './configs/pagesConfig'
 import './configs/tokenConfig'
@@ -7,10 +8,12 @@ import './App.scss'
 import {connect} from "react-redux";
 import Tokens from "./configs/tokenConfig";
 import Login from "./pages/login";
+import MangaModel from "./models/MangaModel";
 
 class App extends React.Component {
     state = {
         isActive: false,
+        isSearch: false
     }
 
     KeyPress = (e) => {
@@ -21,22 +24,40 @@ class App extends React.Component {
     }
 
     onCloseModal = () => this.setState({isActive: false})
-    onSearchSubmit = (e, value) => {
+
+    onSearchSubmit = async (e, value) => {
         if (e.keyCode === 13) {
-            this.props.onSearchSubmit(value)
-            this.onCloseModal()
+            try {
+                const response = await MangaModel.getMangas({title: value})
+                this.props.onSearchSubmit(response)
+                this.onCloseModal()
+                this.setState({isSearch: true}, () => {
+                    this.setState({isSearch: false})
+                })
+            } catch (e) {
+
+            }
         }
     }
 
+    onChangeSearch = _debounce(async (value) => {
+        try {
+            const response = await MangaModel.getMangas({title: value})
+        } catch (e) {
+
+        }
+    }, 200);
+
     render() {
         document.onkeydown = this.KeyPress
-        const {isActive} = this.state
+        const {isActive, isSearch} = this.state
         return (
             <Fragment>
                 {new Tokens().extractRefreshToken() === false ? <Login/> : (
                     <Fragment>
                         <Router>
                             <Switch>
+                                {isSearch && <Redirect to="/manga"/>}
                                 {pages.map((page) =>
                                     <Route
                                         key={page.name}
@@ -49,6 +70,7 @@ class App extends React.Component {
                             </Switch>
                         </Router>
                         {isActive && <ModalMangaSearch isActive={isActive} onCloseModal={this.onCloseModal}
+                                                       onChangeSearch={this.onChangeSearch}
                                                        onSearchSubmit={this.onSearchSubmit}/>}
                     </Fragment>
                 )}
@@ -57,13 +79,10 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    searchValue: state.searchMangaField.value
-})
-
 const mapDispatchToProps = (dispatch) => ({
-    onSearchSubmit: value => dispatch({type: 'SET_SEARCH_MANGA_FIELD_VALUE', value})
+    onSearchSubmit: value => dispatch({type: 'SET_SEARCH_MANGAS', value}),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(() => {
+}, mapDispatchToProps)(App)
 

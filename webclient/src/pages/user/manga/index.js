@@ -6,6 +6,7 @@ import MangaModel from "../../../models/MangaModel";
 import AuthorModel from "../../../models/AuthorModel";
 import TagModel from "../../../models/TagModel";
 import TranslatorModel from "../../../models/TranslatorModel";
+import ChapterModel from "../../../models/ChapterModel";
 
 class UserManga extends React.Component {
     state = {
@@ -18,19 +19,19 @@ class UserManga extends React.Component {
             const {id} = this.props.match.params
             const manga = await MangaModel.getManga(id)
             const author = await AuthorModel.getAuthors(id)
-            // const chapters = await ChapterModel.getChapters(id)
+            const chapters = await ChapterModel.getChapters(id)
             const tags = await TagModel.getTags(id)
             const translators = await TranslatorModel.getTranslators(id)
             this.setState({
                 manga: {
                     ...manga,
                     ...author,
-                    // ...chapters,
+                    ...chapters,
                     ...tags,
                     ...translators
                 },
                 isLoaded: true
-            },()=>console.log(this.state.manga))
+            })
         } catch (e) {
 
         }

@@ -1,7 +1,9 @@
 import axios from 'axios'
 
 class MangaModel {
-    static getMangas = () => axios.get('http://mangas.staging.otaku-shelter.ru/mangas')
+    static getMangas = (query) => axios.get('/mangas', {
+        params: query
+    })
         .then(({data}) => data.mangas)
         .catch((error) => error.response.data)
 

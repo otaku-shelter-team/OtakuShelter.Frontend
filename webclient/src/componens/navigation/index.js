@@ -5,6 +5,7 @@ import logo from '../../assets/icons/otaku.png'
 import avatar from '../../assets/icons/avatar.svg'
 import menu from '../../assets/icons/menu.svg'
 import './Navigation.scss'
+import {connect} from "react-redux";
 
 class Navigation extends React.Component {
     state = {
@@ -31,6 +32,7 @@ class Navigation extends React.Component {
 
     render() {
         const {margin, activeItem, items} = this.state
+        const {onSearchSubmit} = this.props
         return <div>
             <div className="navigation__wrapper"/>
             <div style={{marginLeft: margin}} className="navigation">
@@ -43,19 +45,20 @@ class Navigation extends React.Component {
                         <ul>
                             {items.map((page) => {
                                 if (page.isNotMenuItem !== false) {
-                                    return (<Link key={nanoid()} to={page.route}>
-                                        <li
-                                            className={`navigation__item ${page.id === activeItem ? 'navigation__item-active' : ''}`}
-                                        >
-                                            {page.name}
-                                            {page.id !== undefined && (
-                                                <img style={{
-                                                    width: 30,
-                                                    marginRight: 10
-                                                }} width={100} src={page.icon} alt="#"/>
-                                            )}
-                                        </li>
-                                    </Link>)
+                                    return (
+                                        <Link key={nanoid()} to={page.route}>
+                                            <li
+                                                className={`navigation__item ${page.id === activeItem ? 'navigation__item-active' : ''}`}
+                                            >
+                                                {page.name}
+                                                {page.id !== undefined && (
+                                                    <img style={{
+                                                        width: 30,
+                                                        marginRight: 10
+                                                    }} width={100} src={page.icon} alt="#"/>
+                                                )}
+                                            </li>
+                                        </Link>)
                                 }
                                 return null
                             })}
@@ -80,4 +83,10 @@ class Navigation extends React.Component {
     }
 }
 
-export default Navigation
+const mapDispatchToProps = (dispatch) => ({
+    onSearchSubmit: value => dispatch({type: 'SET_SEARCH_MANGAS', value}),
+})
+
+export default connect(() => {
+}, mapDispatchToProps)(Navigation)
+

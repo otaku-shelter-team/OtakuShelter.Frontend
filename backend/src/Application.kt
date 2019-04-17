@@ -1,42 +1,35 @@
 package com.otaku
 
-import io.ktor.application.Application
-import io.ktor.application.ApplicationCall
-import io.ktor.application.install
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.apache.Apache
-import io.ktor.features.CallLogging
-import io.ktor.http.ContentType
-import io.ktor.http.content.resource
-import io.ktor.http.content.resources
-import io.ktor.http.content.static
-import io.ktor.response.respondText
-import io.ktor.routing.routing
-import io.ktor.server.netty.EngineMain.main
-import kotlinx.css.CSSBuilder
-import org.slf4j.event.Level.INFO
+import com.otaku.utils.JavaScriptBundleResourceResolver
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.context.annotation.Configuration
+import org.springframework.http.CacheControl.*
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+import java.util.concurrent.TimeUnit.*
 
-fun main(args: Array<String>): Unit = main(args)
-
-@Suppress("unused")
-@JvmOverloads
-fun Application.module(testing: Boolean = false) {
-    HttpClient(Apache)
-
-    install(CallLogging) {
-        level = INFO
-    }
-
-    routing {
-        static {
-            static("/static") {
-                resources("static/static")
-            }
-            resource("/", "static/index.html")
+/**
+ * @author Ilya Osadchiy
+ */
+@SpringBootApplication
+class Application {
+    @Configuration
+    class ResourcesConfiguration : WebMvcConfigurer {
+        override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
+            registry
+                .addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/")
+                .setCacheControl(noCache())
+                .resourceChain(true)
+                .addResolver(JavaScriptBundleResourceResolver())
+            registry.addResourceHandler("/assets/**")
+                .addResourceLocations("classpath:static/assets/")
+                .setCacheControl(maxAge(365, DAYS))
         }
     }
 }
 
-suspend inline fun ApplicationCall.respondCss(builder: CSSBuilder.() -> Unit) {
-    this.respondText(CSSBuilder().apply(builder).toString(), ContentType.Text.CSS)
+fun main(args: Array<String>) {
+    SpringApplication.run(Application::class.java, *args)
 }
