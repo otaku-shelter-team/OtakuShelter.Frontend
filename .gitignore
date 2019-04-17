@@ -330,3 +330,5 @@ ASALocalRun/
 .mfractor/
 
 .env
+production
+backend/resources/static
