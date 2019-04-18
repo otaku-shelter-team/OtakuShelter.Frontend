@@ -1,4 +1,4 @@
-FROM gradle:5.4.0-jdk11-slim as ktbuild
+FROM gradle:5.4.0-jdk11 as ktbuild
 COPY . /otakushelter/frontend
 WORKDIR /otakushelter/frontend
 RUN ./gradlew --no-daemon clean build --stacktrace --debug
