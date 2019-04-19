@@ -1,6 +1,7 @@
 FROM gradle:5.4.0-jdk11 as ktbuild
 COPY . /otakushelter/frontend
 WORKDIR /otakushelter/frontend
+USER root
 RUN gradle --no-daemon clean build
 
 FROM gradle:5.4.0-jre11 as ktrun
