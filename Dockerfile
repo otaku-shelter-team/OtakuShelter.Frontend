@@ -7,4 +7,4 @@ RUN gradle --no-daemon clean build
 FROM gradle:5.4.0-jre11 as ktrun
 COPY --from=ktbuild /otakushelter/frontend/production/otaku-shelter.jar /otakushelter/frontend/otaku-shelter.jar
 WORKDIR /otakushelter/frontend
-CMD ["java","-jar","otaku-shelter.jar","--server.port=80"]
+CMD ["java","-jar","otaku-shelter.jar","--server.port=4004"]
