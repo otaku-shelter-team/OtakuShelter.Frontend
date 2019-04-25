@@ -7,7 +7,8 @@ import {connect} from "react-redux";
 class MangaList extends React.Component {
     state = {
         mangas: [],
-        isLoaded: false
+        isLoaded: false,
+        page: 0
     }
 
     async componentDidMount() {
@@ -23,6 +24,36 @@ class MangaList extends React.Component {
         }
     }
 
+    onNextPage = async () => {
+        this.setState({
+            page: this.state.page + 20
+        }, async () => {
+            try {
+                const mangas = await MangaModel.getMangas({
+                    offset: this.state.page
+                })
+                this.setState({mangas})
+            } catch (e) {
+            }
+        })
+    }
+
+    onPrevPage = () => {
+        if(this.state.page === 0)
+            return
+        this.setState({
+            page: this.state.page - 20
+        }, async () => {
+            try {
+                const mangas = await MangaModel.getMangas({
+                    offset: this.state.page
+                })
+                this.setState({mangas})
+            } catch (e) {
+            }
+        })
+    }
+
     render() {
         const {mangas, isLoaded} = this.state
         console.log(mangas)
@@ -34,21 +65,10 @@ class MangaList extends React.Component {
                             <Card key={manga.id} mangaItem={manga}/>
                         )
                     )}
-                    {/*<nav className="pagination is-small" role="navigation" aria-label="pagination">*/}
-                    {/*    <a className="pagination-previous">Previous</a>*/}
-                    {/*    <a className="pagination-next">Next page</a>*/}
-                    {/*    <ul className="pagination-list">*/}
-                    {/*        <li><a className="pagination-link" aria-label="Goto page 1">1</a></li>*/}
-                    {/*        <li><span className="pagination-ellipsis">&hellip;</span></li>*/}
-                    {/*        <li><a className="pagination-link" aria-label="Goto page 45">45</a></li>*/}
-                    {/*        <li><a className="pagination-link is-current" aria-label="Page 46"*/}
-                    {/*               aria-current="page">46</a>*/}
-                    {/*        </li>*/}
-                    {/*        <li><a className="pagination-link" aria-label="Goto page 47">47</a></li>*/}
-                    {/*        <li><span className="pagination-ellipsis">&hellip;</span></li>*/}
-                    {/*        <li><a className="pagination-link" aria-label="Goto page 86">86</a></li>*/}
-                    {/*    </ul>*/}
-                    {/*</nav>*/}
+                    <nav className="pagination is-small" role="navigation" aria-label="pagination">
+                        <a className="pagination-previous" onClick={() => this.onPrevPage()}>Previous</a>
+                        <a className="pagination-next" onClick={() => this.onNextPage()}>Next page</a>
+                    </nav>
                 </div>
             )
     }

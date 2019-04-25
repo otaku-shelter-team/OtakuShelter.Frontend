@@ -33,19 +33,19 @@ class Tokens {
         axios.interceptors.response.use(
             response => response,
             (error) => {
-                // if (error.response && error.response.status === 401) {
-                //     window.location.reload()
-                // }
+                if (error.response && error.response.status === 401) {
+                    window.location.reload()
+                }
                 return Promise.reject(error)
             }
         )
 
-        document.cookie = `refreshToken=${this.tokens.refreshToken}`
+        document.cookie = `refreshToken=${this.tokens.refreshToken}; path=/;`
     }
 
     extractRefreshToken() {
         this.tokens.refreshToken = getCookie("refreshToken")
-        if (this.tokens.refreshToken === "undefined")
+        if (this.tokens.refreshToken === "undefined" || this.tokens.refreshToken === undefined)
             return false
         else
             return this

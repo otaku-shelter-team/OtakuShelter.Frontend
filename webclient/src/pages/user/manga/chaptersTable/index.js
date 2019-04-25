@@ -33,7 +33,7 @@ class ChaptersTable extends React.Component {
         const {isChapterModal, pages} = this.state
         return (
             <section className="hero is-fullheight is-default is-bold">
-                {isChapterModal && <ChapterModelView pages={pages} onModalClose={this.onModalClose}/>}
+                {isChapterModal && <ChapterModelView chapters={manga.chapters} pages={pages} onModalClose={this.onModalClose}/>}
                 <div className="hero-body">
                     <div className="container has-text-centered">
                         <Table

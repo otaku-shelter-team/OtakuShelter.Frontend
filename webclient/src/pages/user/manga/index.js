@@ -43,7 +43,7 @@ class UserManga extends React.Component {
             ? <CustomLoader/>
             : (
                 <div>
-                    <Description manga={manga}/>
+                    <Description {...this.props} manga={manga}/>
                     <ChaptersTable manga={manga}/>
                 </div>
             )

@@ -19,6 +19,16 @@ class App extends React.Component {
         currentMangaId: null
     }
 
+    async componentDidMount() {
+        try {
+            await new Tokens()
+                .extractRefreshToken()
+                .getAccessToken()
+        }catch (e) {
+
+        }
+    }
+
     KeyPress = (e) => {
         const {isActive} = this.state
         const evtobj = window.event ? window.event : e
@@ -103,17 +113,13 @@ class App extends React.Component {
     }
 }
 
-const
-    mapDispatchToProps = (dispatch) => ({
-        onSearchSubmit: value => dispatch({type: 'SET_SEARCH_MANGAS', value}),
-    })
+const mapDispatchToProps = (dispatch) => ({
+    onSearchSubmit: value => dispatch({type: 'SET_SEARCH_MANGAS', value}),
+})
 
 export default connect(
     () => {
-    }
-
-    ,
+    },
     mapDispatchToProps
-)
-(App)
+)(App)
 
