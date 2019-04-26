@@ -5,6 +5,7 @@ USER root
 RUN gradle --no-daemon clean build
 
 FROM openjdk:11
+USER root
 VOLUME /tmp
 COPY --from=ktbuild /otakushelter/frontend/production/otaku-shelter.jar /otakushelter/frontend/otaku-shelter.jar
 WORKDIR /otakushelter/frontend
