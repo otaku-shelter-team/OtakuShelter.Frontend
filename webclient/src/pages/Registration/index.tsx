@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Spinner} from 'react-bootstrap'
 import {RouteComponentProps} from 'react-router'
 import {ITokens} from '../../../interfaces'
+import AccountsModel from '../../models/AccountsModel'
 import TokensModel from '../../models/TokensModel'
 import TokenService from '../../Services/TokenService'
 import RegistrationTemplate from './RegistrationTemplate'
@@ -10,8 +11,10 @@ interface ILoginState {
     formData: {
         login: string,
         password: string,
+        email: string,
+        confirmPassword: string
     },
-    formError: boolean,
+    formError: string[],
     isLoading: boolean
 }
 
@@ -20,8 +23,10 @@ class Registration extends Component<RouteComponentProps, ILoginState> {
         formData: {
             login: '',
             password: '',
+            email: '',
+            confirmPassword: ''
         },
-        formError: false,
+        formError: [],
         isLoading: false,
     }
 
@@ -33,15 +38,23 @@ class Registration extends Component<RouteComponentProps, ILoginState> {
 
     public onSubmit = (e: any) => {
         e.preventDefault()
-        const {formData: {login, password}} = this.state
+        const {formData: {login, password, confirmPassword, email}} = this.state
+        if (password !== confirmPassword) {
+            this.setState({
+                ...this.state,
+                formError: ['Пароли не совпадают']
+            })
+            return null
+        }
         this.setState({...this.state, isLoading: true}, async () => {
             try {
+                await AccountsModel.createAccount({password, username: login, email})
                 const response = await TokensModel.createToken({password, username: login})
                 if (response === 'FAILED') {
-                    this.setState({...this.state, isLoading: false, formError: true})
+                    this.setState({...this.state, isLoading: false, formError: []})
                 } else {
                     TokenService.writeToken(response as ITokens)
-                    this.setState({...this.state, isLoading: false, formError: false})
+                    this.setState({...this.state, isLoading: false, formError: []})
                 }
             } catch (e) {
 

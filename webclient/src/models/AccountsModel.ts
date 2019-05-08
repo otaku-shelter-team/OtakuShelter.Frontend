@@ -13,6 +13,17 @@ class AccountsModel {
 
         }
     }
+
+    public static createAccount = async (query: IUserData) => {
+        try {
+            const {status} = await axios.post('/accounts', query)
+            if (status === 200) {
+                return 'OK'
+            }
+        } catch (e) {
+            return 'FAILED'
+        }
+    }
 }
 
 export default AccountsModel

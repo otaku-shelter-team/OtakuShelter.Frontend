@@ -11,7 +11,7 @@ interface ILoginState {
         login: string,
         password: string,
     },
-    formError: boolean,
+    formError: string[],
     isLoading: boolean
 }
 
@@ -21,7 +21,7 @@ class Login extends Component<RouteComponentProps, ILoginState> {
             login: '',
             password: '',
         },
-        formError: false,
+        formError: [],
         isLoading: false,
     }
 
@@ -32,10 +32,18 @@ class Login extends Component<RouteComponentProps, ILoginState> {
             try {
                 const response = await TokensModel.createToken({password, username: login})
                 if (response === 'FAILED') {
-                    this.setState({...this.state, isLoading: false, formError: true})
+                    this.setState({
+                        ...this.state,
+                        isLoading: false,
+                        formError: ['Неправильный логи или пароль']
+                    })
                 } else {
                     TokenService.writeToken(response as ITokens)
-                    this.setState({...this.state, isLoading: false, formError: false})
+                    this.setState({
+                        ...this.state,
+                        isLoading: false,
+                        formError: []
+                    })
                 }
             } catch (e) {
 

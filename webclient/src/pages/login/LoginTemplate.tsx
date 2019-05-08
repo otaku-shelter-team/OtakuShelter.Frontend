@@ -5,7 +5,7 @@ import {RouteComponentProps} from 'react-router-dom'
 interface ILoginTemplate extends RouteComponentProps {
     onChange: (name: string, value: string) => void,
     onSubmit: (e: any) => void,
-    formError: boolean
+    formError: string[]
 }
 
 const LoginTemplate: FunctionComponent<ILoginTemplate> = ({onChange, onSubmit, formError, history}) =>
@@ -15,6 +15,7 @@ const LoginTemplate: FunctionComponent<ILoginTemplate> = ({onChange, onSubmit, f
                 <Form.Group>
                     <Form.Label>Login</Form.Label>
                     <Form.Control
+                        required
                         onChange={(e: any) =>
                             onChange(e.currentTarget.name, e.currentTarget.value)}
                         name='login'
@@ -24,15 +25,16 @@ const LoginTemplate: FunctionComponent<ILoginTemplate> = ({onChange, onSubmit, f
                 <Form.Group>
                     <Form.Label>Password</Form.Label>
                     <Form.Control
+                        required
                         onChange={(e: any) =>
                             onChange(e.currentTarget.name, e.currentTarget.value)}
                         name='password'
                         type='password'
                         placeholder='password'/>
                 </Form.Group>
-                {formError && (
+                {formError.length > 0 && formError.map((error) =>
                     <Alert variant='danger'>
-                        Не правильный логи или пароль, повторите попытку
+                        {error}
                     </Alert>
                 )}
                 <Button type='submit'>Войти</Button>
