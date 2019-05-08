@@ -27,3 +27,9 @@ zuul:
     types:
       path: /types/**
       url: http://mangas.staging.otaku-shelter.ru/types
+    tokens:
+      path: /tokens/**
+      url: http://accounts.staging.otaku-shelter.ru/tokens
+    accounts:
+      path: /accounts/**
+      url: http://accounts.staging.otaku-shelter.ru/accounts

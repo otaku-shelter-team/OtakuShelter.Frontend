@@ -65,10 +65,6 @@ if ((customizedEnvironment["BUNDLE_WEBCLIENT"] ?: "true").toBoolean()) {
     tasks.compileKotlin.dependsOn(':webclient:buildWebclient')
 }
 
-if ((customizedEnvironment["SPRING_ACTIVE_PROFILE"]) == "development") {
-    tasks.compileKotlin.dependsOn(':webclient:devWebclient')
-}
-
 tasks.build.finalizedBy(productionBuild)
 
 tasks.compileKotlin.dependsOn(cleanBackend)
