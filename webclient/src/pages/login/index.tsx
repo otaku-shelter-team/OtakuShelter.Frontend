@@ -1,10 +1,16 @@
+import {inject, observer} from 'mobx-react'
 import React, {Component} from 'react'
 import {Spinner} from 'react-bootstrap'
 import {RouteComponentProps} from 'react-router'
 import {ITokens} from '../../../interfaces'
 import TokensModel from '../../models/TokensModel'
 import TokenService from '../../Services/TokenService'
+import {IMLogin} from '../../store/MLogin'
 import LoginTemplate from './LoginTemplate'
+
+interface ILoginProps extends RouteComponentProps {
+    loginStore?: IMLogin
+}
 
 interface ILoginState {
     formData: {
@@ -15,7 +21,12 @@ interface ILoginState {
     isLoading: boolean
 }
 
-class Login extends Component<RouteComponentProps, ILoginState> {
+@inject((allStores: any) => ({
+    loginStore: allStores.loginStore as IMLogin
+}))
+@observer
+class Login extends Component<ILoginProps, ILoginState> {
+
     public state = {
         formData: {
             login: '',
@@ -28,6 +39,7 @@ class Login extends Component<RouteComponentProps, ILoginState> {
     public onSubmit = (e: any) => {
         e.preventDefault()
         const {formData: {login, password}} = this.state
+
         this.setState({...this.state, isLoading: true}, async () => {
             try {
                 const response = await TokensModel.createToken({password, username: login})
@@ -37,13 +49,11 @@ class Login extends Component<RouteComponentProps, ILoginState> {
                         isLoading: false,
                         formError: ['Неправильный логи или пароль']
                     })
+
                 } else {
                     TokenService.writeToken(response as ITokens)
-                    this.setState({
-                        ...this.state,
-                        isLoading: false,
-                        formError: []
-                    })
+                    this!.props!.loginStore!.isLogin = true
+                    this!.props!.history.push('/manga')
                 }
             } catch (e) {
 

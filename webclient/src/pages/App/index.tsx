@@ -6,7 +6,7 @@ import {BrowserRouter, Link, Redirect, Route, Switch} from 'react-router-dom'
 import TokensModel from '../../models/TokensModel'
 import TokenService from '../../Services/TokenService'
 import {IMLogin} from '../../store/MLogin'
-import Login from '../Login'
+import Login from '../Login/index'
 import Registration from '../Registration'
 import MangaList from '../User/MangaList'
 
