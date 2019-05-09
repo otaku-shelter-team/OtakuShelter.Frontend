@@ -4,7 +4,7 @@ import {RouteComponentProps} from 'react-router'
 import {ITokens} from '../../../interfaces'
 import AccountsModel from '../../models/AccountsModel'
 import TokensModel from '../../models/TokensModel'
-import TokenService from '../../Services/TokenService'
+import TokenService from '../../services/TokenService'
 import RegistrationTemplate from './RegistrationTemplate'
 
 interface ILoginState {
