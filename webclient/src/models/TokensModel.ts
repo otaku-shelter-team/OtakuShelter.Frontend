@@ -10,6 +10,18 @@ class TokensModel {
             return 'FAILED'
         }
     }
+
+    public static refreshToken = async (query: { refreshToken: string }): Promise<ITokens> => {
+        try {
+            const {data} = await axios.put('/tokens', query)
+            return data
+        } catch (e) {
+            return {
+                accessToken: '',
+                refreshToken: ''
+            }
+        }
+    }
 }
 
 export default TokensModel

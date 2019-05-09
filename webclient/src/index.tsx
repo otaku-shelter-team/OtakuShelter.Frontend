@@ -1,9 +1,11 @@
 import axios from 'axios'
+import {Provider} from 'mobx-react'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.scss'
 import App from './pages/App'
 import * as serviceWorker from './serviceWorker'
+import store from './store'
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -43,7 +45,9 @@ const isProduction = process.env.NODE_ENV === 'production';
     // );
 
     ReactDOM.render(
-        <App/>,
+        <Provider {...store}>
+            <App/>
+        </Provider>,
         rootEl,
     )
 })()

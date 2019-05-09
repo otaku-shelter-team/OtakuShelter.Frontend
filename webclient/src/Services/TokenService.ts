@@ -26,6 +26,11 @@ class TokenService {
 
         axios.defaults.headers.common = {...defaultHeaders}
     }
+
+    public static containsToken(): [boolean, string] {
+        const refreshToken = getCookie('refreshToken')
+        return [!(refreshToken === undefined || refreshToken === 'undefined'), refreshToken!]
+    }
 }
 
 export default TokenService
