@@ -14,7 +14,7 @@ const MangaListTemplate: FunctionComponent<IMangaListTemplate> = ({mangas, onCha
         <Container className='h-100'>
             <Row className='h-100'>
                 {mangas.map((manga) =>
-                    <Col md={6} lg={3} key={manga.id}>
+                    <Col xs={6} sm={6} md={4} lg={3} key={manga.id}>
                         <MangaCard manga={manga}/>
                     </Col>
                 )}

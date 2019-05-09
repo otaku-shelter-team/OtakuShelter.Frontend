@@ -11,7 +11,7 @@ interface ILoginTemplate extends RouteComponentProps {
 const LoginTemplate: FunctionComponent<ILoginTemplate> = ({onChange, onSubmit, formError, history}) =>
     <Container className='h-100'>
         <Row className='h-100 align-content-center justify-content-center'>
-            <Col md={3}>
+            <Col md={4}>
                 <Form onSubmit={onSubmit}>
                     <Form.Group>
                         <Form.Label>Login</Form.Label>
