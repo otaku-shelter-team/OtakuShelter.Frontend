@@ -332,3 +332,4 @@ ASALocalRun/
 .env
 production
 backend/resources/static
+.gradle
