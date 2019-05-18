@@ -5,7 +5,7 @@ class MLogin implements IMLogin {
 }
 
 export interface IMLogin {
-    isLogin: boolean,
+    isLogin?: boolean,
 }
 
 export default new MLogin()

@@ -13,7 +13,10 @@
     },
     "object-literal-sort-keys": false,
     "no-empty": false,
-    "trailing-comma": false
+    "trailing-comma": false,
+    "max-line-length": false,
+    "arrow-parens": false,
+    "no-restricted-globals": false
   },
   "rulesDirectory": []
 }

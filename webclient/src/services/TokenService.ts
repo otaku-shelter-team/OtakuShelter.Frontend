@@ -10,8 +10,8 @@ function getCookie(name: string) {
 
 class TokenService {
     public static tokens: ITokens = {
-        accessToken: '',
-        refreshToken: ''
+        accessToken: undefined,
+        refreshToken: undefined
     }
 
     public static writeToken(response: ITokens) {
@@ -29,7 +29,13 @@ class TokenService {
 
     public static containsToken(): [boolean, string] {
         const refreshToken = getCookie('refreshToken')
-        return [!(refreshToken === undefined || refreshToken === 'undefined'), refreshToken!]
+        return [!(refreshToken === undefined || refreshToken === 'undefined' || refreshToken === ''), refreshToken!]
+    }
+
+    public static deleteToken = () => {
+        TokenService.tokens.accessToken = ''
+        TokenService.tokens.refreshToken = ''
+        document.cookie = `refreshToken=undefined; path=/;`
     }
 }
 

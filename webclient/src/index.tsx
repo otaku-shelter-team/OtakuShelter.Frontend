@@ -1,4 +1,5 @@
 import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.css'
 import {Provider} from 'mobx-react'
 import React from 'react'
 import ReactDOM from 'react-dom'

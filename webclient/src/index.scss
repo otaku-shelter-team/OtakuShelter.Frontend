@@ -22,3 +22,9 @@ code {
   height: 100%;
 }
 
+@media (max-width: 576px) {
+  .search {
+    width: auto !important;
+    margin-right: 2%;
+  }
+}

@@ -58,7 +58,7 @@ const RegistrationTemplate: FunctionComponent<IRegistrationTemplate> = ({onChang
                             {error}
                         </Alert>
                     )}
-                    <Button type='submit' onClick={() => history.push('/registration')}>
+                    <Button type='submit' onClick={() => history.push('/manga')}>
                         Регистрация
                     </Button>
                 </Form>

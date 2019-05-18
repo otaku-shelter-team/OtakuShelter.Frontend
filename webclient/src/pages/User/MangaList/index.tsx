@@ -1,66 +1,47 @@
+import {inject, observer} from 'mobx-react'
 import React, {Component} from 'react'
 import {RouteComponentProps} from 'react-router'
 import {IManga} from '../../../../interfaces'
-import MangasModel from '../../../models/MangasModel'
+import {IMMangaList} from '../../../store/MMangaList'
 import MangaListTemplate from './MangaListTemplate'
 
 interface IMangaListState {
     mangas: IManga[],
-    offset: number
+    offset: number,
+    manga: string,
+
 }
 
-class MangaList extends Component<RouteComponentProps, IMangaListState> {
-    public state = {
-        mangas: [],
-        offset: 0
-    }
+interface IMangaListProps extends RouteComponentProps {
+    mangaListStore?: IMMangaList
+}
 
-    public fetchMangas = async () => {
-        const {offset} = this.state
-        try {
-            const mangas = await MangasModel.getMangas({offset})
-            this.setState({
-                ...this.state,
-                mangas
-            }, () => window.scrollTo(0, 0))
-        } catch (e) {
-
-        }
+@inject((allStores: any) => ({
+    mangaListStore: allStores.mangaListStore as IMMangaList,
+}))
+@observer
+class MangaList extends Component<IMangaListProps, IMangaListState> {
+    public async componentDidMount(): Promise<void> {
+        this!.props!.mangaListStore!.onMangaListFetch()
     }
 
     public onChangePage = (query: 'next' | 'prev') => {
-        const {offset} = this.state
         if (query === 'next') {
-            this.setState({
-                ...this.state,
-                offset: offset + 20
-            }, () => this.fetchMangas())
+            this!.props!.mangaListStore!.offset += 20
+            this!.props!.mangaListStore!.onMangaListFetch()
         }
         if (query === 'prev') {
-            this.setState({
-                ...this.state,
-                offset: offset === 0 ? 0 : offset - 20
-            }, () => this.fetchMangas())
+            this!.props!.mangaListStore!.offset = this!.props!.mangaListStore!.offset === 0 ? 0 : this!.props!.mangaListStore!.offset - 20
+            this!.props!.mangaListStore!.onMangaListFetch()
         }
-    }
-
-    public async componentDidMount(): Promise<void> {
-        const {offset} = this.state
-        try {
-            const mangas = await MangasModel.getMangas({offset})
-            this.setState({
-                ...this.state,
-                mangas
-            })
-        } catch (e) {
-
-        }
+        window.scrollTo(0, 0)
     }
 
     public render() {
-        const {mangas, offset} = this.state
         return (
-            <MangaListTemplate mangas={mangas} onChangePage={this.onChangePage} offset={offset}/>
+            <MangaListTemplate mangas={this!.props!.mangaListStore!.mangas} onChangePage={this.onChangePage}
+                               offset={this!.props!.mangaListStore!.offset}
+                               history={this.props.history}/>
         )
     }
 }
