@@ -69,7 +69,10 @@ class App extends Component<IApp, {}> {
                                 placeholder='Search' className='mr-sm-2'
                                 value={this!.props!.mangaListStore!.searchManga}/>
                             <Button variant='outline-primary'
-                                    onClick={() => this!.props!.mangaListStore!.onMangaListFetch('start')}>Search</Button>
+                                    onClick={() => {
+                                        this!.props!.mangaListStore!.onMangaListFetch('start')
+                                        this.setState({isModalOpen: false})
+                                    }}>Search</Button>
                         </Form>
                     </Modal.Body>
                 </Modal>

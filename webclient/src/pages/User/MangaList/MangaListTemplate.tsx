@@ -15,7 +15,8 @@ const MangaListTemplate: FunctionComponent<IMangaListTemplate> = ({mangas, onCha
     <Container className='h-100'>
         <Row className='h-100'>
             {mangas.map((manga) =>
-                <Col style={{cursor: 'pointer'}} onClick={() => history.push(`/manga/${manga.id}`)} key={manga.id}
+                <Col className='d-flex justify-content-center' style={{cursor: 'pointer'}}
+                     onClick={() => history.push(`/manga/${manga.id}`)} key={manga.id}
                      xs={12} sm={6} md={4} lg={3}>
                     <MangaCard manga={manga}/>
                 </Col>
