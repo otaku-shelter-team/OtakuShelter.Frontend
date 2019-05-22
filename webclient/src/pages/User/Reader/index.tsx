@@ -20,7 +20,33 @@ class Reader extends Component<IReader, { isLoading: boolean }> {
 
     public onFetch = async () => {
         const {readerStore, match} = this.props
-        readerStore!.nextChapter = false
+        // @ts-ignore
+        readerStore!.chapterId = Number(match.params.chapterId)
+        await readerStore!.onFetchPages()
+    }
+
+    public nextChapter = () => {
+        const {history, readerStore} = this.props
+        const chapterId = readerStore!.chapters[readerStore!.chapters.findIndex(chapter => chapter.id === readerStore!.chapterId) + 1]
+        if (!chapterId) {
+            return
+        }
+        history.push(`/manga/${readerStore!.mangaId}/chapter/${chapterId}`)
+        return ''
+    }
+
+    public prevChapter = () => {
+        const {history, readerStore} = this.props
+        const chapterId = readerStore!.chapters[readerStore!.chapters.findIndex(chapter => chapter.id === readerStore!.chapterId) - 1]
+        if (!chapterId) {
+            return
+        }
+        history.push(`/manga/${readerStore!.mangaId}/chapter/${chapterId.id}`)
+        return ''
+    }
+
+    public async componentDidMount(): Promise<void> {
+        const {match, readerStore} = this.props
         // @ts-ignore
         readerStore!.chapterId = Number(match.params.chapterId)
         // @ts-ignore
@@ -29,18 +55,6 @@ class Reader extends Component<IReader, { isLoading: boolean }> {
             offset: null,
             limit: null
         })
-        await readerStore!.onFetchPages()
-    }
-
-    public nextChapter = () => {
-        const {history, readerStore} = this.props
-        history.push(`/manga/${readerStore!.mangaId}/chapter/${
-            readerStore!.chapters[readerStore!.chapters.findIndex(chapter => chapter.id === readerStore!.chapterId) + 1].id
-            }`)
-        return ''
-    }
-
-    public async componentDidMount(): Promise<void> {
         await this.onFetch()
         this.setState({
             isLoading: false
@@ -63,8 +77,13 @@ class Reader extends Component<IReader, { isLoading: boolean }> {
     public render() {
         const {readerStore, history} = this.props
         const {isLoading} = this.state
-        if (readerStore!.nextChapter) {
-            this.nextChapter()
+        if (!isLoading) {
+            if (readerStore!.nextChapter) {
+                this.nextChapter()
+            }
+            if (readerStore!.prevChapter) {
+                this.prevChapter()
+            }
         }
         return isLoading
             ? <Container className='h-100'>
@@ -103,9 +122,14 @@ class Reader extends Component<IReader, { isLoading: boolean }> {
                         </Col>
                     </Row>
                     <Row>
-                        <Col>
-                            <Image onClick={() => this.props.readerStore!.onNextPage()} className='w-100'
+                        <Col className='w-100'>
+                            <Image className='position-relative w-100'
                                    src={readerStore!.currentPage ? readerStore!.currentPage.image : ''}/>
+                            <div onClick={() => this.props.readerStore!.onNextPage()}
+                                 className='next_page position-absolute w-50 h-100' style={{top: 0, left: '50%'}}/>
+                            <div onClick={() => this.props.readerStore!.onPrevPage()}
+                                 className='prev_page position-absolute w-50 h-100' style={{top: 0, left: 0}}/>
+                            <img className='d-none' src={readerStore!.prevPage && readerStore!.prevPage.image} alt='#'/>
                             <img className='d-none' src={readerStore!.nextPage && readerStore!.nextPage.image} alt='#'/>
                         </Col>
                     </Row>

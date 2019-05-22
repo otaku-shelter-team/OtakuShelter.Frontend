@@ -10,10 +10,13 @@ export interface IMReader {
     pages: IPage[],
     currentPage: IPage,
     nextPage: IPage,
+    prevPage: IPage,
     onFetchPages: () => Promise<void>,
     onNextPage: () => void,
+    onPrevPage: () => void,
     onChangePage: (page: IPage) => void,
-    nextChapter: boolean
+    nextChapter: boolean,
+    prevChapter: boolean
 }
 
 class MReader implements IMReader {
@@ -30,23 +33,56 @@ class MReader implements IMReader {
         id: 0,
         image: ''
     }
+    @observable public prevPage = {
+        id: 0,
+        image: ''
+    }
     @observable public nextChapter = false
+    @observable public prevChapter = false
 
     @action public onFetchPages = async () => {
         // @ts-ignore
         this.pages = await PagesModel.getPagesByChapterId(this.chapterId)
+        if (this.nextChapter) {
+            this.nextChapter = false
+            this.currentPage = this.pages[0]
+            this.nextPage = this.pages[1]
+            this.prevPage = this.pages[-1]
+            return
+        }
+        if (this.prevChapter) {
+            this.prevChapter = false
+            this.currentPage = this.pages[this.pages.length - 1]
+            this.nextPage = this.pages[this.pages.length]
+            this.prevPage = this.pages[this.pages.length - 2]
+            return
+        }
         this.currentPage = this.pages[0]
         this.nextPage = this.pages[1]
+        this.prevPage = this.pages[-1]
     }
 
     @action public onNextPage = () => {
+        this.prevPage = this.currentPage
         this.currentPage = this.nextPage
         if (this.currentPage === undefined) {
             this.nextChapter = true
+            this.currentPage = this.prevPage
             return
         }
         this.nextPage = this.pages[this.pages.findIndex(page => page.id === this.currentPage.id) + 1]
+        window.scrollTo(0, 0)
+    }
 
+    @action public onPrevPage = () => {
+        this.nextPage = this.currentPage
+        this.currentPage = this.prevPage
+        if (this.currentPage === undefined) {
+            this.prevChapter = true
+            this.currentPage = this.nextPage
+            return
+        }
+        this.prevPage = this.pages[this.pages.findIndex(page => page.id === this.currentPage.id) - 1]
         window.scrollTo(0, 0)
     }
 

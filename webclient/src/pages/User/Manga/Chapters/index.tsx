@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import {inject, observer} from 'mobx-react'
 import React, {Component} from 'react'
 import {Col, Container, Pagination, Row, Table} from 'react-bootstrap'
@@ -44,7 +45,7 @@ class Chapters extends Component<IChaptersProps, {}> {
                             {chaptersStore!.chapters.map(chapter => (
                                 <tr onClick={() => this.onClick(chapter.id.toString())} key={chapter.id}>
                                     <th>{chapter.title}</th>
-                                    <th>{chapter.uploadDate}</th>
+                                    <th>{dayjs(chapter.uploadDate).format('DD-MM-YYYY')}</th>
                                 </tr>
                             ))}
                             </tbody>
