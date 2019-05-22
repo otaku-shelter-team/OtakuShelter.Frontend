@@ -8,14 +8,9 @@ class MMangaList implements IMMangaList {
     @observable public offset = 0
 
     @action public onMangaListFetch = async (query?: string) => {
-        if (query !== undefined) {
-            this.offset = 0
-            const mangas = await MangasModel.getMangas({offset: this.offset, title: this.searchManga})
-            this.mangas = mangas
-        } else {
-            const mangas = await MangasModel.getMangas({offset: this.offset})
-            this.mangas = mangas
-        }
+        this.offset = 0
+        const mangas = await MangasModel.getMangas({offset: this.offset, title: this.searchManga})
+        this.mangas = mangas
     }
 }
 

@@ -13,10 +13,14 @@ import MangaList from '../User/MangaList'
 import Profile from '../User/Profile'
 import Reader from '../User/Reader'
 
-interface IApp {
-    isModalOpen?: boolean,
+interface IAppProps {
     loginStore?: IMLogin,
     mangaListStore?: IMMangaList
+}
+
+interface IAppState {
+    isModalOpen: boolean,
+    isMenuOpen: boolean
 }
 
 @inject((allStores: any) => ({
@@ -24,9 +28,10 @@ interface IApp {
     mangaListStore: allStores.mangaListStore as IMMangaList,
 }))
 @observer
-class App extends Component<IApp, {}> {
+class App extends Component<IAppProps, IAppState> {
     public state = {
-        isModalOpen: false
+        isModalOpen: false,
+        isMenuOpen: false
     }
 
     public async componentDidMount(): Promise<void> {
@@ -44,9 +49,10 @@ class App extends Component<IApp, {}> {
     }
 
     public onModalOpen = () => this.setState({...this.state, isModalOpen: !this.state.isModalOpen})
+    public onMenuOpen = () => this.setState({...this.state, isMenuOpen: !this.state.isMenuOpen})
 
     public render() {
-        const {isModalOpen} = this.state
+        const {isModalOpen, isMenuOpen} = this.state
         const {mangaListStore} = this.props
         return (
             <BrowserRouter>
@@ -68,21 +74,29 @@ class App extends Component<IApp, {}> {
                                 type='text'
                                 placeholder='Search' className='mr-sm-2'
                                 value={this!.props!.mangaListStore!.searchManga}/>
-                            <Button variant='outline-primary'
-                                    onClick={() => {
-                                        this!.props!.mangaListStore!.onMangaListFetch('start')
-                                        this.setState({isModalOpen: false})
-                                    }}>Search</Button>
+                            <Link to='/manga}'>
+                                <Button variant='outline-primary'
+                                        onClick={() => {
+                                            this!.props!.mangaListStore!.onMangaListFetch()
+                                            this.setState({isModalOpen: false, isMenuOpen: false})
+                                        }}>
+                                    Search
+                                </Button>
+                            </Link>
                         </Form>
                     </Modal.Body>
                 </Modal>
-                <Navbar collapseOnSelect expand='sm' bg='light' variant='light'>
+                <Navbar collapseOnSelect expand='sm' bg='light' variant='light' expanded={isMenuOpen}
+                        onToggle={() => this.onMenuOpen()}>
                     <Navbar.Brand>Otaku-Shelter</Navbar.Brand>
                     <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
                     <Navbar.Collapse id='responsive-navbar-nav'>
                         <Nav className='mr-auto'>
                             <Nav.Link>
-                                <Link to='/manga'>
+                                <Link onClick={() => {
+                                    this!.props!.mangaListStore!.searchManga = ''
+                                    this.onMenuOpen()
+                                }} to='/manga'>
                                     Manga
                                 </Link>
                             </Nav.Link>
@@ -90,23 +104,24 @@ class App extends Component<IApp, {}> {
                         <Nav>
                             {this!.props!.loginStore!.isLogin
                                 ? (
-                                    <Link to='/profile'>
-                                        <Image
-                                            width={40}
-                                            height={40}
-                                            src='https://cdn4.iconfinder.com/data/icons/one-piece-anime/48/Sed-33-512.png'
-                                            roundedCircle/>
+                                    <Link onClick={() => this.onMenuOpen()} to='/profile'>
+                                        Profile
+                                        {/*<Image*/}
+                                        {/*    width={40}*/}
+                                        {/*    height={40}*/}
+                                        {/*    src='https://cdn4.iconfinder.com/data/icons/one-piece-anime/48/Sed-33-512.png'*/}
+                                        {/*    roundedCircle/>*/}
                                     </Link>
                                 )
                                 : (
                                     <Fragment>
                                         <Nav.Link>
-                                            <Link to='/Login'>
+                                            <Link onClick={() => this.onMenuOpen()} to='/Login'>
                                                 Вход
                                             </Link>
                                         </Nav.Link>
                                         <Nav.Link>
-                                            <Link to='/registration'>
+                                            <Link onClick={() => this.onMenuOpen()} to='/registration'>
                                                 Регистрация
                                             </Link>
                                         </Nav.Link>
