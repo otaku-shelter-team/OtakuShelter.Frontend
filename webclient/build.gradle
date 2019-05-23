@@ -13,7 +13,6 @@ ext {
 
 task clean {
     if ((customizedEnvironment["BUNDLE_WEBCLIENT"] ?: "true").toBoolean()) {
-        tasks.compileKotlin.dependsOn(':webclient:buildWebclient')
         final def webDir = "${rootDir}/webclient"
         delete "${webDir}/.gradle"
         delete "${webDir}/node_modules"
