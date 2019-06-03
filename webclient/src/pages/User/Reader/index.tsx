@@ -27,7 +27,8 @@ class Reader extends Component<IReader, { isLoading: boolean }> {
 
     public nextChapter = () => {
         const {history, readerStore} = this.props
-        const chapterId = readerStore!.chapters[readerStore!.chapters.findIndex(chapter => chapter.id === readerStore!.chapterId) + 1]
+        const chapterId = readerStore!.chapters[readerStore!.chapters
+            .findIndex(chapter => chapter.id === readerStore!.chapterId) + 1].id
         if (!chapterId) {
             return
         }
@@ -37,11 +38,12 @@ class Reader extends Component<IReader, { isLoading: boolean }> {
 
     public prevChapter = () => {
         const {history, readerStore} = this.props
-        const chapterId = readerStore!.chapters[readerStore!.chapters.findIndex(chapter => chapter.id === readerStore!.chapterId) - 1]
+        const chapterId = readerStore!.chapters[readerStore!.chapters
+            .findIndex(chapter => chapter.id === readerStore!.chapterId) - 1].id
         if (!chapterId) {
             return
         }
-        history.push(`/manga/${readerStore!.mangaId}/chapter/${chapterId.id}`)
+        history.push(`/manga/${readerStore!.mangaId}/chapter/${chapterId}`)
         return ''
     }
 
