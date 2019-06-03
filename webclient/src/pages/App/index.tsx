@@ -74,7 +74,7 @@ class App extends Component<IAppProps, IAppState> {
                                 type='text'
                                 placeholder='Search' className='mr-sm-2'
                                 value={this!.props!.mangaListStore!.searchManga}/>
-                            <Link to='/manga}'>
+                            <Link to='/manga'>
                                 <Button variant='outline-primary'
                                         onClick={() => {
                                             this!.props!.mangaListStore!.onMangaListFetch()
@@ -104,14 +104,11 @@ class App extends Component<IAppProps, IAppState> {
                         <Nav>
                             {this!.props!.loginStore!.isLogin
                                 ? (
-                                    <Link onClick={() => this.onMenuOpen()} to='/profile'>
-                                        Profile
-                                        {/*<Image*/}
-                                        {/*    width={40}*/}
-                                        {/*    height={40}*/}
-                                        {/*    src='https://cdn4.iconfinder.com/data/icons/one-piece-anime/48/Sed-33-512.png'*/}
-                                        {/*    roundedCircle/>*/}
-                                    </Link>
+                                    <Nav.Link>
+                                        <Link onClick={() => this.onMenuOpen()} to='/profile'>
+                                            Profile
+                                        </Link>
+                                    </Nav.Link>
                                 )
                                 : (
                                     <Fragment>
