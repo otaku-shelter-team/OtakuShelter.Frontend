@@ -43,7 +43,7 @@ class Manga extends Component<IMangaProps, { isLoading: boolean }> {
             : (
                 <Container>
                     <Row>
-                        <Col sm={12} md={6}>
+                        <Col className='d-flex justify-content-center align-items-center' sm={12} md={6}>
                             <Image className='w-75' src={this!.props!.mangaStore!.manga.image} rounded/>
                         </Col>
                         <Col sm={12} md={6} className=''>

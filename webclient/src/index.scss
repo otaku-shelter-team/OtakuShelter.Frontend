@@ -27,6 +27,10 @@ code {
   height: 300px;
 }
 
+.chapter {
+  cursor: pointer;
+}
+
 @media (max-width: 576px) {
   .search {
     width: auto !important;
@@ -34,5 +38,22 @@ code {
   }
   .card {
     width: 300px;
+  }
+  .chapter {
+    font-size: small;
+
+    &__name {
+      width: 67%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .chapter {
+    font-size: small;
+
+    &__name {
+      width: 67%;
+    }
   }
 }

@@ -43,8 +43,9 @@ class Chapters extends Component<IChaptersProps, {}> {
                             </thead>
                             <tbody>
                             {chaptersStore!.chapters.map(chapter => (
-                                <tr onClick={() => this.onClick(chapter.id.toString())} key={chapter.id}>
-                                    <th>{chapter.title}</th>
+                                <tr className='chapter' onClick={() => this.onClick(chapter.id.toString())}
+                                    key={chapter.id}>
+                                    <th className='chapters__name'>{chapter.title}</th>
                                     <th>{dayjs(chapter.uploadDate).format('DD-MM-YYYY')}</th>
                                 </tr>
                             ))}
