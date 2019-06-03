@@ -22,26 +22,29 @@ interface IMangaListProps extends RouteComponentProps {
 @observer
 class MangaList extends Component<IMangaListProps, IMangaListState> {
     public async componentDidMount(): Promise<void> {
-        this!.props!.mangaListStore!.onMangaListFetch()
+        const {mangaListStore} = this.props
+        mangaListStore!.onMangaListFetch()
     }
 
     public onChangePage = (query: 'next' | 'prev') => {
+        const {mangaListStore} = this.props
         if (query === 'next') {
-            this!.props!.mangaListStore!.offset += 20
-            this!.props!.mangaListStore!.onMangaListFetch()
+            mangaListStore!.offset += 20
+            mangaListStore!.onMangaListFetch()
         }
         if (query === 'prev') {
-            this!.props!.mangaListStore!.offset = this!.props!.mangaListStore!.offset === 0 ? 0 : this!.props!.mangaListStore!.offset - 20
-            this!.props!.mangaListStore!.onMangaListFetch()
+            mangaListStore!.offset = mangaListStore!.offset === 0 ? 0 : mangaListStore!.offset - 20
+            mangaListStore!.onMangaListFetch()
         }
         window.scrollTo(0, 0)
     }
 
     public render() {
+        const {mangaListStore, history} = this.props
         return (
-            <MangaListTemplate mangas={this!.props!.mangaListStore!.mangas} onChangePage={this.onChangePage}
-                               offset={this!.props!.mangaListStore!.offset}
-                               history={this.props.history}/>
+            <MangaListTemplate mangas={mangaListStore!.mangas} onChangePage={this.onChangePage}
+                               offset={mangaListStore!.offset}
+                               history={history}/>
         )
     }
 }

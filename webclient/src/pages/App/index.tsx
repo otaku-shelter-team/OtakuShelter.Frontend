@@ -35,12 +35,20 @@ class App extends Component<IAppProps, IAppState> {
     }
 
     public async componentDidMount(): Promise<void> {
+        // @ts-ignore
+        document.addEventListener('keydown', (e) => {
+            e = e || window.event
+            if (e.altKey && e.code === 'KeyK') {
+                this.onModalOpen()
+            }
+            return
+        })
         try {
             const [isToken, refreshToken] = TokenService.containsToken()
             if (isToken) {
                 const tokens = await TokensModel.refreshToken({refreshToken})
                 TokenService.writeToken(tokens)
-                this!.props!.loginStore!.isLogin = true
+                this.props.loginStore!.isLogin = true
             }
         } catch (e) {
 
@@ -48,12 +56,19 @@ class App extends Component<IAppProps, IAppState> {
 
     }
 
-    public onModalOpen = () => this.setState({...this.state, isModalOpen: !this.state.isModalOpen})
+    public onModalOpen = () => {
+        this.setState({...this.state, isModalOpen: !this.state.isModalOpen}, () => {
+            // @ts-ignore
+            document.getElementById('search_input').focus()
+        })
+
+    }
+
     public onMenuOpen = () => this.setState({...this.state, isMenuOpen: !this.state.isMenuOpen})
 
     public render() {
         const {isModalOpen, isMenuOpen} = this.state
-        const {mangaListStore} = this.props
+        const {mangaListStore, loginStore} = this.props
         return (
             <BrowserRouter>
                 <Modal
@@ -68,16 +83,24 @@ class App extends Component<IAppProps, IAppState> {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form inline>
+                        <Form className='d-flex' onSubmit={(e: any) => {
+                            e.preventDefault()
+                            mangaListStore!.offset = 0
+                            mangaListStore!.onMangaListFetch()
+                            this.setState({isModalOpen: false, isMenuOpen: false})
+                        }}>
                             <FormControl
+                                id='search_input'
                                 onChange={(e: any) => mangaListStore!.searchManga = e.target.value}
                                 type='text'
-                                placeholder='Search' className='mr-sm-2'
-                                value={this!.props!.mangaListStore!.searchManga}/>
+                                placeholder='Search'
+                                value={mangaListStore!.searchManga}/>
                             <Link to='/manga'>
-                                <Button variant='outline-primary'
+                                <Button className='ml-2'
+                                        variant='outline-primary'
                                         onClick={() => {
-                                            this!.props!.mangaListStore!.onMangaListFetch()
+                                            mangaListStore!.offset = 0
+                                            mangaListStore!.onMangaListFetch()
                                             this.setState({isModalOpen: false, isMenuOpen: false})
                                         }}>
                                     Search
@@ -94,7 +117,8 @@ class App extends Component<IAppProps, IAppState> {
                         <Nav className='mr-auto'>
                             <Nav.Link>
                                 <Link onClick={() => {
-                                    this!.props!.mangaListStore!.searchManga = ''
+                                    mangaListStore!.searchManga = ''
+                                    mangaListStore!.onMangaListFetch()
                                     this.onMenuOpen()
                                 }} to='/manga'>
                                     Manga
@@ -102,7 +126,7 @@ class App extends Component<IAppProps, IAppState> {
                             </Nav.Link>
                         </Nav>
                         <Nav>
-                            {this!.props!.loginStore!.isLogin
+                            {loginStore!.isLogin
                                 ? (
                                     <Nav.Link>
                                         <Link onClick={() => this.onMenuOpen()} to='/profile'>

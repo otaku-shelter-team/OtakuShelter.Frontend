@@ -98,8 +98,9 @@ class Reader extends Component<IReader, { isLoading: boolean }> {
             : (
                 <Container>
                     <Row>
-                        <Col className='d-flex'>
+                        <Col className='d-flex mt-3'>
                             <DropdownButton id='dropdown-basic-button'
+                                            variant='outline-primary'
                                             title={`Глава: ${
                                             readerStore!.chapterId && readerStore!.chapters
                                                 .findIndex(chapter => chapter.id === readerStore!.chapterId)
@@ -111,6 +112,7 @@ class Reader extends Component<IReader, { isLoading: boolean }> {
                                 ))}
                             </DropdownButton>
                             <DropdownButton className='ml-2' id='dropdown-basic-button'
+                                            variant='outline-primary'
                                             title={`Страница: ${
                                             readerStore!.currentPage && readerStore!.pages
                                                 .findIndex(page => page.id === readerStore!.currentPage.id)
@@ -124,7 +126,7 @@ class Reader extends Component<IReader, { isLoading: boolean }> {
                         </Col>
                     </Row>
                     <Row>
-                        <Col className='w-100'>
+                        <Col className='w-100 mt-3'>
                             <Image className='position-relative w-100'
                                    src={readerStore!.currentPage ? readerStore!.currentPage.image : ''}/>
                             <div onClick={() => this.props.readerStore!.onNextPage()}
